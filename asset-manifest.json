@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Grafik2/static/css/main.9be16983.css",
+    "main.js": "/Grafik2/static/js/main.64840d57.js",
+    "index.html": "/Grafik2/index.html",
+    "main.9be16983.css.map": "/Grafik2/static/css/main.9be16983.css.map",
+    "main.64840d57.js.map": "/Grafik2/static/js/main.64840d57.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9be16983.css",
+    "static/js/main.64840d57.js"
+  ]
+}
