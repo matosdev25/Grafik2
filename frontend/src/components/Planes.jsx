@@ -16,6 +16,7 @@ const Planes = forwardRef(({ selectedPlan, selectedCategory }, ref) => {
     if (selectedCategory && selectedCategory !== activeTab) {
       setActiveTab(selectedCategory);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
   useEffect(() => {
