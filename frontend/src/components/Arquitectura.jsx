@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Building2, Gem } from 'lucide-react';
 
-const Arquitectura = () => {
+const Arquitectura = forwardRef((props, ref) => {
   const services = [
     {
       icon: Building2,
@@ -18,7 +18,7 @@ const Arquitectura = () => {
   ];
 
   return (
-    <section className="py-20 px-4" id="arquitectura">
+    <section className="py-20 px-4" id="arquitectura" ref={ref}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
@@ -66,6 +66,8 @@ const Arquitectura = () => {
       </div>
     </section>
   );
-};
+});
+
+Arquitectura.displayName = 'Arquitectura';
 
 export default Arquitectura;
