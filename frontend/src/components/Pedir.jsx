@@ -16,6 +16,7 @@ const Pedir = forwardRef(({ selectedTab: initialTab }, ref) => {
     if (initialTab && initialTab !== activeTab) {
       setActiveTab(initialTab);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialTab]);
 
   const products = pedirData[activeTab] || [];
