@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, forwardRef } from 'react';
 import { Check } from 'lucide-react';
+import { planesData } from '../data/planesData';
 
-const Planes = () => {
+const Planes = forwardRef(({ selectedPlan, selectedCategory }, ref) => {
   const [activeTab, setActiveTab] = useState('diseno');
+  const cardRefs = useRef({});
 
   const tabs = [
     { id: 'diseno', label: 'Diseño Gráfico' },
@@ -10,50 +12,33 @@ const Planes = () => {
     { id: 'combos', label: 'Combos completas' }
   ];
 
-  const plans = [
-    {
-      name: 'Básico',
-      price: '$49',
-      period: '/mes',
-      features: [
-        '5 diseños mensuales',
-        'Entrega en 48 horas',
-        'Revisiones ilimitadas',
-        'Formatos digitales'
-      ],
-      popular: false
-    },
-    {
-      name: 'Profesional',
-      price: '$99',
-      period: '/mes',
-      features: [
-        '15 diseños mensuales',
-        'Entrega en 24 horas',
-        'Revisiones ilimitadas',
-        'Todos los formatos',
-        'Soporte prioritario'
-      ],
-      popular: true
-    },
-    {
-      name: 'Empresarial',
-      price: '$199',
-      period: '/mes',
-      features: [
-        'Diseños ilimitados',
-        'Entrega en 12 horas',
-        'Revisiones ilimitadas',
-        'Todos los formatos',
-        'Gerente dedicado',
-        'Branding completo'
-      ],
-      popular: false
+  useEffect(() => {
+    if (selectedCategory && selectedCategory !== activeTab) {
+      setActiveTab(selectedCategory);
     }
-  ];
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    if (selectedPlan && cardRefs.current[selectedPlan]) {
+      setTimeout(() => {
+        cardRefs.current[selectedPlan].scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+        
+        // Highlight effect
+        cardRefs.current[selectedPlan].classList.add('ring-2', 'ring-teal-400', 'ring-offset-2', 'ring-offset-transparent');
+        setTimeout(() => {
+          cardRefs.current[selectedPlan]?.classList.remove('ring-2', 'ring-teal-400', 'ring-offset-2', 'ring-offset-transparent');
+        }, 2000);
+      }, 300);
+    }
+  }, [selectedPlan, activeTab]);
+
+  const plans = planesData[activeTab] || [];
 
   return (
-    <section className="py-20 px-4" id="planes">
+    <section className="py-20 px-4" id="planes" ref={ref}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
@@ -84,8 +69,9 @@ const Planes = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {plans.map((plan, index) => (
             <div
-              key={index}
-              className={`relative bg-white/5 backdrop-blur-xl border rounded-3xl p-8 shadow-2xl shadow-black/20 hover:bg-white/10 transition-all duration-300 hover:scale-105 ${
+              key={plan.id}
+              ref={el => cardRefs.current[plan.id] = el}
+              className={`relative bg-white/5 backdrop-blur-xl border rounded-3xl p-8 shadow-2xl shadow-black/20 hover:bg-white/10 transition-all duration-500 hover:scale-105 ${
                 plan.popular ? 'border-teal-400/50' : 'border-white/10'
               }`}
             >
@@ -123,6 +109,8 @@ const Planes = () => {
       </div>
     </section>
   );
-};
+});
+
+Planes.displayName = 'Planes';
 
 export default Planes;
