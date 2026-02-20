@@ -105,7 +105,7 @@ const Pedir = forwardRef(({ selectedTab: initialTab }, ref) => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes fadeIn {
           from {
             opacity: 0;

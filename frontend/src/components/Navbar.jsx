@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { MapPin, ChevronDown } from 'lucide-react';
+import React, { useState, useEffect, useRef } from "react";
+import { ChevronDown } from "lucide-react";
 
 const Navbar = ({ onNavigate }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -9,40 +9,36 @@ const Navbar = ({ onNavigate }) => {
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   const dropdownData = {
     planes: [
-      { id: 'basico', label: 'Plan Básico', category: 'diseno', plan: 'basico' },
-      { id: 'pro', label: 'Plan Pro', category: 'diseno', plan: 'profesional' },
-      { id: 'premium', label: 'Plan Premium', category: 'diseno', plan: 'empresarial' }
+      { id: "basico", label: "Plan Básico", category: "diseno", plan: "basico" },
+      { id: "pro", label: "Plan Pro", category: "diseno", plan: "profesional" },
+      { id: "premium", label: "Plan Premium", category: "diseno", plan: "empresarial" },
     ],
     pedir: [
-      { id: 'flyers', label: 'Flyers', tab: 'flyers' },
-      { id: 'video', label: 'Video', tab: 'video' },
-      { id: 'logo', label: 'Logo', tab: 'logo' }
+      { id: "flyers", label: "Flyers", tab: "flyers" },
+      { id: "video", label: "Video", tab: "video" },
+      { id: "logo", label: "Logo", tab: "logo" },
     ],
     arquitectura: [
-      { id: 'planos', label: 'Planos', section: 'arquitectura' },
-      { id: 'renders', label: 'Renders', section: 'arquitectura' }
-    ]
+      { id: "planos", label: "Planos", section: "arquitectura" },
+      { id: "renders", label: "Renders", section: "arquitectura" },
+    ],
   };
 
   const handleMouseEnter = (dropdown) => {
     if (isMobile) return;
-    if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current);
-    }
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
     setActiveDropdown(dropdown);
   };
 
   const handleMouseLeave = () => {
     if (isMobile) return;
-    closeTimeoutRef.current = setTimeout(() => {
-      setActiveDropdown(null);
-    }, 150);
+    closeTimeoutRef.current = setTimeout(() => setActiveDropdown(null), 160);
   };
 
   const handleClick = (dropdown) => {
@@ -52,41 +48,47 @@ const Navbar = ({ onNavigate }) => {
 
   const handleMenuItemClick = (item, section) => {
     setActiveDropdown(null);
-    if (onNavigate) {
-      onNavigate(section, item);
-    }
+    if (onNavigate) onNavigate(section, item);
   };
 
   const handleKeyDown = (e, dropdown) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
-    } else if (e.key === 'Escape') {
+    } else if (e.key === "Escape") {
       setActiveDropdown(null);
     }
   };
 
   const DropdownMenu = ({ items, section, isOpen }) => {
-    if (!isOpen) return null;
-
     return (
-      <div 
-        className="absolute top-full left-1/2 -translate-x-1/2 mt-2 min-w-[200px] bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl shadow-black/30 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200"
+      <div
+        className={[
+          "absolute top-full left-1/2 -translate-x-1/2 mt-3 min-w-[220px]",
+          "bg-black/75 backdrop-blur-xl border border-white/10",
+          "rounded-2xl shadow-2xl shadow-black/60 py-2 z-50",
+          "origin-top transition-all duration-300 ease-out",
+          isOpen
+            ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
+            : "opacity-0 -translate-y-1 scale-[0.98] pointer-events-none",
+        ].join(" ")}
         onMouseEnter={() => handleMouseEnter(section)}
         onMouseLeave={handleMouseLeave}
+        role="menu"
+        aria-label={`${section}-menu`}
       >
         {items.map((item, index) => (
           <React.Fragment key={item.id}>
             <button
+              type="button"
               onClick={() => handleMenuItemClick(item, section)}
-              className="w-full text-left px-4 py-3 text-white/90 hover:text-white hover:bg-white/10 transition-colors text-sm font-medium"
+              className="w-full text-left px-4 py-3 text-white/95 hover:text-white hover:bg-white/10 transition-colors text-sm font-medium"
               role="menuitem"
             >
               {item.label}
             </button>
-            {index < items.length - 1 && (
-              <div className="mx-2 border-t border-white/10" />
-            )}
+
+            {index < items.length - 1 && <div className="mx-2 border-t border-white/10" />}
           </React.Fragment>
         ))}
       </div>
@@ -99,85 +101,95 @@ const Navbar = ({ onNavigate }) => {
         <div className="px-8 py-4 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <MapPin className="w-5 h-5 text-teal-400" strokeWidth={2.5} />
+            <img
+              src={`${process.env.PUBLIC_URL}/logo.png`}
+              alt="GRAFIK2"
+              className="h-5 w-5 object-contain"
+            />
             <span className="text-white font-bold text-lg tracking-tight">GRAFIK2®</span>
           </div>
 
           {/* Navigation Menu */}
           <div className="flex items-center gap-8">
-            <a 
-              href="#quienes-somos" 
+            <a
+              href="#quienes-somos"
               className="text-white/90 hover:text-white text-sm font-medium transition-colors"
             >
               ¿Quiénes somos?
             </a>
-            
+
             {/* Planes Dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => handleMouseEnter('planes')}
+            <div
+              className="relative z-50"
+              onMouseEnter={() => handleMouseEnter("planes")}
               onMouseLeave={handleMouseLeave}
             >
-              <button 
-                onClick={() => handleClick('planes')}
-                onKeyDown={(e) => handleKeyDown(e, 'planes')}
+              <button
+                type="button"
+                onClick={() => handleClick("planes")}
+                onKeyDown={(e) => handleKeyDown(e, "planes")}
                 className="flex items-center gap-1 text-white/90 hover:text-white text-sm font-medium transition-colors"
                 aria-haspopup="menu"
-                aria-expanded={activeDropdown === 'planes'}
+                aria-expanded={activeDropdown === "planes"}
               >
                 Planes
                 <ChevronDown className="w-4 h-4" />
               </button>
-              <DropdownMenu 
-                items={dropdownData.planes} 
-                section="planes" 
-                isOpen={activeDropdown === 'planes'} 
+
+              <DropdownMenu
+                items={dropdownData.planes}
+                section="planes"
+                isOpen={activeDropdown === "planes"}
               />
             </div>
 
             {/* Pedir Dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => handleMouseEnter('pedir')}
+            <div
+              className="relative z-50"
+              onMouseEnter={() => handleMouseEnter("pedir")}
               onMouseLeave={handleMouseLeave}
             >
-              <button 
-                onClick={() => handleClick('pedir')}
-                onKeyDown={(e) => handleKeyDown(e, 'pedir')}
+              <button
+                type="button"
+                onClick={() => handleClick("pedir")}
+                onKeyDown={(e) => handleKeyDown(e, "pedir")}
                 className="flex items-center gap-1 text-white/90 hover:text-white text-sm font-medium transition-colors"
                 aria-haspopup="menu"
-                aria-expanded={activeDropdown === 'pedir'}
+                aria-expanded={activeDropdown === "pedir"}
               >
                 Pedir
                 <ChevronDown className="w-4 h-4" />
               </button>
-              <DropdownMenu 
-                items={dropdownData.pedir} 
-                section="pedir" 
-                isOpen={activeDropdown === 'pedir'} 
+
+              <DropdownMenu
+                items={dropdownData.pedir}
+                section="pedir"
+                isOpen={activeDropdown === "pedir"}
               />
             </div>
 
             {/* Arquitectura Dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => handleMouseEnter('arquitectura')}
+            <div
+              className="relative z-50"
+              onMouseEnter={() => handleMouseEnter("arquitectura")}
               onMouseLeave={handleMouseLeave}
             >
-              <button 
-                onClick={() => handleClick('arquitectura')}
-                onKeyDown={(e) => handleKeyDown(e, 'arquitectura')}
+              <button
+                type="button"
+                onClick={() => handleClick("arquitectura")}
+                onKeyDown={(e) => handleKeyDown(e, "arquitectura")}
                 className="flex items-center gap-1 text-white/90 hover:text-white text-sm font-medium transition-colors"
                 aria-haspopup="menu"
-                aria-expanded={activeDropdown === 'arquitectura'}
+                aria-expanded={activeDropdown === "arquitectura"}
               >
                 Arquitectura
                 <ChevronDown className="w-4 h-4" />
               </button>
-              <DropdownMenu 
-                items={dropdownData.arquitectura} 
-                section="arquitectura" 
-                isOpen={activeDropdown === 'arquitectura'} 
+
+              <DropdownMenu
+                items={dropdownData.arquitectura}
+                section="arquitectura"
+                isOpen={activeDropdown === "arquitectura"}
               />
             </div>
           </div>
