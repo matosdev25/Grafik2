@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Grafik2/static/css/main.6baff2d3.css",
-    "main.js": "/Grafik2/static/js/main.0eda8402.js",
+    "main.css": "/Grafik2/static/css/main.0355c773.css",
+    "main.js": "/Grafik2/static/js/main.18583c9b.js",
     "static/media/gilroy-heavy 2.ttf": "/Grafik2/static/media/gilroy-heavy 2.bf729a99bcad6fccc3f4.ttf",
     "static/media/queering-heavy.otf": "/Grafik2/static/media/queering-heavy.6fed8345a251ad0bc6c0.otf",
     "index.html": "/Grafik2/index.html",
-    "main.6baff2d3.css.map": "/Grafik2/static/css/main.6baff2d3.css.map",
-    "main.0eda8402.js.map": "/Grafik2/static/js/main.0eda8402.js.map"
+    "main.0355c773.css.map": "/Grafik2/static/css/main.0355c773.css.map",
+    "main.18583c9b.js.map": "/Grafik2/static/js/main.18583c9b.js.map"
   },
   "entrypoints": [
-    "static/css/main.6baff2d3.css",
-    "static/js/main.0eda8402.js"
+    "static/css/main.0355c773.css",
+    "static/js/main.18583c9b.js"
   ]
 }
