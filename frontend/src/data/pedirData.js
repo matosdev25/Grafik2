@@ -1,19 +1,19 @@
 export const pedirData = {
   flyers: [
     {
-      id: 'basico',
-      name: 'Flyer Básico',
-      description: 'Diseño simple y efectivo para eventos o promociones',
+      id: 'impresion',
+      name: 'Flyer para Impresion',
+      description: 'Diseño optimizado para impresión con alta resolución perfecto para eventos, promociones o restaurantes',
       price: '$25'
     },
     {
-      id: 'premium',
-      name: 'Flyer Premium',
-      description: 'Diseño avanzado con ilustraciones personalizadas',
-      price: '$49'
+      id: 'redessociales',
+      name: 'Flyer para Redes Sociales',
+      description: 'Diseño adaptado para plataformas sociales con formato cuadrado o vertical, ideal para promociones online y eventos digitales',
+      price: '$20'
     },
     {
-      id: 'pack',
+      id: 'pack5',
       name: 'Pack 5 Flyers',
       description: '5 diseños únicos para diferentes ocasiones',
       price: '$99'
@@ -21,42 +21,42 @@ export const pedirData = {
   ],
   video: [
     {
-      id: 'corto',
-      name: 'Video Corto',
-      description: 'Video promocional de 15-30 segundos para redes sociales',
+      id: 'baby',
+      name: 'Baby Movie',
+      description: '4 videos mensuales perfectos para quienes estan iniciando y desean contenido profesional sin complicaciones',
       price: '$99'
     },
     {
-      id: 'estandar',
-      name: 'Video Estándar',
-      description: 'Video profesional de 30-60 segundos con motion graphics',
+      id: 'media',
+      name: 'Media Movie',
+      description: '8 videos mensuales pensado para negocios que quieren mantener su contenido fresco y atractivo en redes sociales',
       price: '$199'
     },
     {
-      id: 'premium',
-      name: 'Video Premium',
-      description: 'Video completo hasta 2 minutos con animaciones 3D',
-      price: '$399'
+      id: 'super',
+      name: 'Super Movie',
+      description: '12 videos mensuales, paquete mas completo para marcas que buscan dominar las redes con contenido audiovisual profesional y constante',
+      price: '$299'
     }
   ],
   logo: [
     {
       id: 'basico',
       name: 'Logo Básico',
-      description: 'Diseño de logo simple con 2 conceptos iniciales',
-      price: '$79'
+      description: 'Diseño de logo base, version positivo y negativo, paleta de colores y archivo de illustrator',
+      price: '$65'
     },
     {
-      id: 'profesional',
-      name: 'Logo Profesional',
-      description: 'Logo completo con manual de marca y variaciones',
-      price: '$149'
+      id: 'pro',
+      name: 'Logo Pro',
+      description: 'Diseño de logo, 2 variantes de logo, version positivo y negativo, paleta de colores, archivo de illustrator',
+      price: '$85'
     },
     {
-      id: 'branding',
-      name: 'Pack Branding',
-      description: 'Logo + identidad visual completa para tu marca',
-      price: '$299'
+      id: 'identidad',
+      name: 'Identidad Visual',
+      description: 'Logotipo, paleta de colores, tipografía, iconografía corporativa, imagineria y estilo fotografico, aplicaciones visuales, isotipo, sistema de compocision, manual de identidad visual',
+      price: '$150'
     }
   ]
 };

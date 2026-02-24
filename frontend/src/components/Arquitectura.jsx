@@ -6,23 +6,27 @@ const Arquitectura = forwardRef((props, ref) => {
     {
       icon: Building2,
       title: 'Planos',
-      description: 'Diseño arquitectónico completo con especificaciones técnicas detalladas y planos profesionales.',
+      description:
+        'Diseño arquitectónico completo con especificaciones técnicas detalladas y planos profesionales.',
       chips: ['Planos 2D', 'Especificaciones', 'Permisos', 'Revisiones']
     },
     {
       icon: Gem,
       title: 'Renders',
-      description: 'Visualizaciones 3D fotorrealistas que dan vida a tus proyectos antes de construir.',
+      description:
+        'Visualizaciones 3D fotorrealistas que dan vida a tus proyectos antes de construir.',
       chips: ['Renders 3D', 'Fotorrealismo', '360° Tours', 'Animaciones']
     }
   ];
 
   return (
-    <section className="py-20 px-4" id="arquitectura" ref={ref}>
+    <section className="font-gilroy py-20 px-4" id="arquitectura" ref={ref}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold text-white mb-4">Arquitectura</h2>
+          <h2 className="font-queering text-5xl font-bold text-white mb-4">
+            Arquitectura
+          </h2>
           <p className="text-white/70 text-lg">Soluciones arquitectónicas profesionales</p>
         </div>
 
@@ -38,13 +42,17 @@ const Arquitectura = forwardRef((props, ref) => {
                 <div className="mb-6">
                   <Icon className="w-16 h-16 text-teal-400" strokeWidth={1.5} />
                 </div>
-                
-                <h3 className="text-3xl font-bold text-white mb-4">{service.title}</h3>
+
+                {/* Título card en Queering */}
+                <h3 className="font-queering text-3xl font-bold text-white mb-4">
+                  {service.title}
+                </h3>
+
                 <p className="text-white/60 text-base mb-8 leading-relaxed">
                   {service.description}
                 </p>
 
-                {/* Chips */}
+                {/* Chips (Gilroy heredado) */}
                 <div className="grid grid-cols-2 gap-3 mb-8">
                   {service.chips.map((chip, idx) => (
                     <div

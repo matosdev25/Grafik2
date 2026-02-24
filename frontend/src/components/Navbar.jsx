@@ -97,7 +97,8 @@ const Navbar = ({ onNavigate }) => {
 
   return (
     <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-[900px] px-4">
-      <nav className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl shadow-black/20">
+      {/* TODO el navbar en Gilroy */}
+      <nav className="font-gilroy bg-white/5 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl shadow-black/20">
         <div className="px-8 py-4 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-2">
@@ -106,7 +107,10 @@ const Navbar = ({ onNavigate }) => {
               alt="GRAFIK2"
               className="h-5 w-5 object-contain"
             />
-            <span className="text-white font-bold text-lg tracking-tight">GRAFIK2®</span>
+            {/* SOLO “GRAFIK2®” en Queering */}
+            <span className="font-queering text-white font-bold text-lg tracking-tight">
+              GRAFIK2®
+            </span>
           </div>
 
           {/* Navigation Menu */}

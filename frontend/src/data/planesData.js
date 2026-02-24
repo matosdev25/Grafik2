@@ -1,26 +1,24 @@
 export const planesData = {
   diseno: [
     {
-      id: 'basico',
-      name: 'Básico',
-      price: '$49',
+      id: 'mini',
+      name: 'Mini Grafik',
+      price: '$60',
       period: '/mes',
       features: [
-        '5 diseños mensuales',
-        'Entrega en 48 horas',
+        '4 Flyers mensuales',
         'Revisiones ilimitadas',
         'Formatos digitales'
       ],
       popular: false
     },
     {
-      id: 'profesional',
-      name: 'Profesional',
-      price: '$99',
+      id: 'gmedia',
+      name: 'Grafik Media',
+      price: '$120',
       period: '/mes',
       features: [
-        '15 diseños mensuales',
-        'Entrega en 24 horas',
+        '8 Flyers mensuales',
         'Revisiones ilimitadas',
         'Todos los formatos',
         'Soporte prioritario'
@@ -28,13 +26,12 @@ export const planesData = {
       popular: true
     },
     {
-      id: 'empresarial',
-      name: 'Empresarial',
-      price: '$199',
+      id: 'multi',
+      name: 'Multi Grafik',
+      price: '$180',
       period: '/mes',
       features: [
-        'Diseños ilimitados',
-        'Entrega en 12 horas',
+        '12 Flyers mensuales',
         'Revisiones ilimitadas',
         'Todos los formatos',
         'Gerente dedicado',
@@ -92,13 +89,12 @@ export const planesData = {
   ],
   combos: [
     {
-      id: 'basico',
-      name: 'Básico',
-      price: '$179',
+      id: 'minicombi',
+      name: 'Mini Combi',
+      price: '$120',
       period: '/mes',
       features: [
-        '3 diseños + 1 video',
-        'Entrega en 48 horas',
+        '4 Flyers + 4 video',
         'Revisiones ilimitadas',
         'Todos los formatos',
         '20% de descuento'
@@ -106,13 +102,12 @@ export const planesData = {
       popular: false
     },
     {
-      id: 'profesional',
-      name: 'Profesional',
-      price: '$359',
+      id: 'combimediana',
+      name: 'Combi Mediana',
+      price: '$240',
       period: '/mes',
       features: [
-        '10 diseños + 3 videos',
-        'Entrega en 24 horas',
+        '8 Flyers + 8 videos',
         'Revisiones ilimitadas',
         'Todos los formatos',
         'Soporte prioritario',
@@ -121,13 +116,12 @@ export const planesData = {
       popular: true
     },
     {
-      id: 'empresarial',
-      name: 'Empresarial',
-      price: '$699',
+      id: 'supercombi',
+      name: 'Super Combi',
+      price: '$350',
       period: '/mes',
       features: [
-        'Diseños y videos ilimitados',
-        'Entrega en 12 horas',
+        '12 Flyers + 12 videos',
         'Revisiones ilimitadas',
         'Todos los formatos',
         'Gerente dedicado',

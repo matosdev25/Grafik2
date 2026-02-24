@@ -1,63 +1,90 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Play, Sparkles, Target, ShoppingBag, Eye } from 'lucide-react';
 
+const getNextMonthStart = (from = new Date()) => {
+  return new Date(from.getFullYear(), from.getMonth() + 1, 1, 0, 0, 0, 0);
+};
+
+const msToParts = (ms) => {
+  const totalSeconds = Math.max(0, Math.floor(ms / 1000));
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  return { days, hours, minutes, seconds };
+};
+
 const Hero = () => {
-  const [timeLeft, setTimeLeft] = useState({
-    hours: 12,
-    minutes: 23,
-    seconds: 43
-  });
+  const targetRef = useRef(getNextMonthStart());
+  const [timeLeft, setTimeLeft] = useState(() => msToParts(targetRef.current - new Date()));
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        let { hours, minutes, seconds } = prev;
-        
-        if (seconds > 0) {
-          seconds--;
-        } else {
-          seconds = 59;
-          if (minutes > 0) {
-            minutes--;
-          } else {
-            minutes = 59;
-            if (hours > 0) {
-              hours--;
-            } else {
-              hours = 23;
-            }
-          }
-        }
-        
-        return { hours, minutes, seconds };
-      });
-    }, 1000);
+    const tick = () => {
+      const now = new Date();
+      let diff = targetRef.current - now;
 
+      // Si ya pasó el 1 del mes (o justo cayó), reprograma al próximo mes
+      if (diff <= 0) {
+        targetRef.current = getNextMonthStart(now);
+        diff = targetRef.current - now;
+      }
+
+      setTimeLeft(msToParts(diff));
+    };
+
+    tick(); // pinta inmediato
+    const timer = setInterval(tick, 1000);
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <section className="pt-32 pb-20 px-4">
+    <section className="font-gilroy pt-32 pb-20 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Offer Banner */}
         <div className="mb-16 flex justify-center">
           <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-full px-8 py-4 shadow-2xl shadow-black/20 inline-flex items-center gap-4">
             <div className="flex items-center gap-2">
               <span className="text-2xl">🔥</span>
+
               <span className="text-white/90 font-medium">
-                <span className="font-bold text-white">Oferta Especial:</span> ¡20% de descuento en todos los planes!
+                <span className="font-queering font-bold text-white">Oferta Especial:</span>{" "}
+                ¡20% de descuento en todos los planes!
               </span>
+
               <span className="text-white/70 ml-2">Termina en:</span>
             </div>
+
             <div className="flex gap-2">
-              <div className="bg-teal-500/20 backdrop-blur-sm border border-teal-400/30 rounded-lg px-3 py-2 min-w-[50px] text-center">
-                <span className="text-white font-bold text-lg">{String(timeLeft.hours).padStart(2, '0')}</span>
+              {/* Días */}
+              <div className="bg-teal-500/20 backdrop-blur-sm border border-teal-400/30 rounded-lg px-3 py-2 min-w-[58px] text-center">
+                <span className="text-white font-bold text-lg">
+                  {String(timeLeft.days).padStart(2, '0')}
+                </span>
+                <div className="text-[10px] leading-3 text-white/70 -mt-0.5">DÍAS</div>
               </div>
-              <div className="bg-teal-500/20 backdrop-blur-sm border border-teal-400/30 rounded-lg px-3 py-2 min-w-[50px] text-center">
-                <span className="text-white font-bold text-lg">{String(timeLeft.minutes).padStart(2, '0')}</span>
+
+              {/* Horas */}
+              <div className="bg-teal-500/20 backdrop-blur-sm border border-teal-400/30 rounded-lg px-3 py-2 min-w-[58px] text-center">
+                <span className="text-white font-bold text-lg">
+                  {String(timeLeft.hours).padStart(2, '0')}
+                </span>
+                <div className="text-[10px] leading-3 text-white/70 -mt-0.5">HRS</div>
               </div>
-              <div className="bg-teal-500/20 backdrop-blur-sm border border-teal-400/30 rounded-lg px-3 py-2 min-w-[50px] text-center">
-                <span className="text-white font-bold text-lg">{String(timeLeft.seconds).padStart(2, '0')}</span>
+
+              {/* Minutos */}
+              <div className="bg-teal-500/20 backdrop-blur-sm border border-teal-400/30 rounded-lg px-3 py-2 min-w-[58px] text-center">
+                <span className="text-white font-bold text-lg">
+                  {String(timeLeft.minutes).padStart(2, '0')}
+                </span>
+                <div className="text-[10px] leading-3 text-white/70 -mt-0.5">MIN</div>
+              </div>
+
+              {/* Segundos */}
+              <div className="bg-teal-500/20 backdrop-blur-sm border border-teal-400/30 rounded-lg px-3 py-2 min-w-[58px] text-center">
+                <span className="text-white font-bold text-lg">
+                  {String(timeLeft.seconds).padStart(2, '0')}
+                </span>
+                <div className="text-[10px] leading-3 text-white/70 -mt-0.5">SEG</div>
               </div>
             </div>
           </div>
@@ -67,19 +94,23 @@ const Hero = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left Content */}
           <div className="space-y-8">
-            <h1 className="text-6xl lg:text-7xl font-bold leading-tight">
+            <h1 className="text-6xl lg:text-7xl font-bold leading-tight text-white">
               Le damos un estilo{' '}
               <span className="text-teal-400">único</span>{' '}
               a tus ideas.
             </h1>
+
             <p className="text-white/70 text-lg leading-relaxed max-w-xl">
-              Diseño gráfico profesional, flyers creativos, videos impactantes, logos memorables y arquitectura innovadora. Todo lo que necesitas para destacar.
+              Diseño gráfico profesional, flyers creativos, videos impactantes, logos memorables y arquitectura innovadora.
+              Todo lo que necesitas para destacar.
             </p>
+
             <div className="flex gap-4">
               <button className="bg-teal-500 hover:bg-teal-400 text-white px-8 py-4 rounded-full font-semibold text-base transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-teal-500/30 flex items-center gap-2">
                 <ShoppingBag className="w-5 h-5" />
                 Comprar ahora
               </button>
+
               <button className="bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/10 text-white px-8 py-4 rounded-full font-semibold text-base transition-all duration-300 hover:scale-105 flex items-center gap-2">
                 <Eye className="w-5 h-5" />
                 Ver portafolio
@@ -121,6 +152,7 @@ const Hero = () => {
             </div>
           </div>
         </div>
+
       </div>
     </section>
   );

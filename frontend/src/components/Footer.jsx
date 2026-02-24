@@ -1,37 +1,32 @@
 import React from 'react';
-import { MapPin, Instagram, Facebook, Twitter, Linkedin, Mail, Phone } from 'lucide-react';
+import { MapPin, Instagram, Facebook, Twitter, Mail, Phone } from 'lucide-react';
+import { SiTiktok } from 'react-icons/si';
 
 const Footer = () => {
-  const services = [
-    'Diseño Gráfico',
-    'Creación de Videos',
-    'Logos',
-    'Arquitectura'
-  ];
+  const services = ['Diseño Gráfico', 'Creación de Videos', 'Logos', 'Arquitectura'];
 
-  const quickLinks = [
-    '¿Quiénes somos?',
-    'Planes',
-    'Portafolio',
-    'Pedir'
-  ];
+  const quickLinks = ['¿Quiénes somos?', 'Planes', 'Portafolio', 'Pedir'];
 
   const socialLinks = [
-    { icon: Instagram, href: '#' },
-    { icon: Facebook, href: '#' },
-    { icon: Twitter, href: '#' },
-    { icon: Linkedin, href: '#' }
+    { icon: Instagram, href: 'https://www.instagram.com/grafik2s/' },
+    { icon: SiTiktok, href: 'https://www.tiktok.com/@grafik2s' }, // TikTok
   ];
 
   return (
-    <footer className="py-16 px-4 border-t border-white/10">
+    <footer className="font-gilroy py-16 px-4 border-t border-white/10">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand Column */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <MapPin className="w-6 h-6 text-teal-400" strokeWidth={2.5} />
-              <span className="text-white font-bold text-xl tracking-tight">GRAFIK2®</span>
+              <img
+                  src={`${process.env.PUBLIC_URL}/logo.png`}
+                  alt="GRAFIK2"
+                  className="w-6 h-6 object-contain"
+                />
+              <span className="font-queering text-white font-bold text-xl tracking-tight">
+                GRAFIK2®
+              </span>
             </div>
             <p className="text-white/60 leading-relaxed">
               Transformamos tus ideas en diseños únicos y memorables.
@@ -40,7 +35,7 @@ const Footer = () => {
 
           {/* Services Column */}
           <div>
-            <h3 className="text-white font-bold text-lg mb-4">Servicios</h3>
+            <h3 className="font-queering text-white font-bold text-lg mb-4">Servicios</h3>
             <ul className="space-y-3">
               {services.map((service, index) => (
                 <li key={index}>
@@ -54,7 +49,7 @@ const Footer = () => {
 
           {/* Quick Links Column */}
           <div>
-            <h3 className="text-white font-bold text-lg mb-4">Enlaces rápidos</h3>
+            <h3 className="font-queering text-white font-bold text-lg mb-4">Enlaces rápidos</h3>
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
@@ -68,7 +63,7 @@ const Footer = () => {
 
           {/* Social Column */}
           <div>
-            <h3 className="text-white font-bold text-lg mb-4">Síguenos</h3>
+            <h3 className="font-queering text-white font-bold text-lg mb-4">Síguenos</h3>
             <div className="flex gap-3 mb-6">
               {socialLinks.map((social, index) => {
                 const Icon = social.icon;
@@ -77,20 +72,22 @@ const Footer = () => {
                     key={index}
                     href={social.href}
                     className="bg-white/5 hover:bg-teal-500 border border-white/10 hover:border-teal-400 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                    aria-label="social-link"
                   >
                     <Icon className="w-5 h-5 text-white" />
                   </a>
                 );
               })}
             </div>
+
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-white/60">
                 <Mail className="w-4 h-4" />
-                <span className="text-sm">contacto@grafik2.com</span>
+                <span className="text-sm">grafik2pty@gmail.com</span>
               </div>
               <div className="flex items-center gap-2 text-white/60">
                 <Phone className="w-4 h-4" />
-                <span className="text-sm">+1 234 567 8900</span>
+                <span className="text-sm">+507 6228-1656</span>
               </div>
             </div>
           </div>

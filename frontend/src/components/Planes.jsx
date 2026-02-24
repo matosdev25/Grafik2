@@ -16,7 +16,7 @@ const Planes = forwardRef(({ selectedPlan, selectedCategory }, ref) => {
     if (selectedCategory && selectedCategory !== activeTab) {
       setActiveTab(selectedCategory);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
   useEffect(() => {
@@ -26,11 +26,20 @@ const Planes = forwardRef(({ selectedPlan, selectedCategory }, ref) => {
           behavior: 'smooth',
           block: 'center'
         });
-        
-        // Highlight effect
-        cardRefs.current[selectedPlan].classList.add('ring-2', 'ring-teal-400', 'ring-offset-2', 'ring-offset-transparent');
+
+        cardRefs.current[selectedPlan].classList.add(
+          'ring-2',
+          'ring-teal-400',
+          'ring-offset-2',
+          'ring-offset-transparent'
+        );
         setTimeout(() => {
-          cardRefs.current[selectedPlan]?.classList.remove('ring-2', 'ring-teal-400', 'ring-offset-2', 'ring-offset-transparent');
+          cardRefs.current[selectedPlan]?.classList.remove(
+            'ring-2',
+            'ring-teal-400',
+            'ring-offset-2',
+            'ring-offset-transparent'
+          );
         }, 2000);
       }, 300);
     }
@@ -39,18 +48,22 @@ const Planes = forwardRef(({ selectedPlan, selectedCategory }, ref) => {
   const plans = planesData[activeTab] || [];
 
   return (
-    <section className="py-20 px-4" id="planes" ref={ref}>
+    <section className="font-gilroy py-20 px-4" id="planes" ref={ref}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold text-white mb-4">Planes</h2>
-          <p className="text-white/70 text-lg">Elige el plan perfecto para tus necesidades</p>
+          <h2 className="font-queering text-5xl font-bold text-white mb-4">
+            Planes
+          </h2>
+          <p className="text-white/70 text-lg">
+            Elige el plan perfecto para tus necesidades
+          </p>
         </div>
 
         {/* Tabs */}
         <div className="flex justify-center mb-16">
           <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-full p-2 inline-flex gap-2">
-            {tabs.map(tab => (
+            {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
@@ -71,7 +84,7 @@ const Planes = forwardRef(({ selectedPlan, selectedCategory }, ref) => {
           {plans.map((plan, index) => (
             <div
               key={plan.id}
-              ref={el => cardRefs.current[plan.id] = el}
+              ref={(el) => (cardRefs.current[plan.id] = el)}
               className={`relative bg-white/5 backdrop-blur-xl border rounded-3xl p-8 shadow-2xl shadow-black/20 hover:bg-white/10 transition-all duration-500 hover:scale-105 ${
                 plan.popular ? 'border-teal-400/50' : 'border-white/10'
               }`}
@@ -83,11 +96,20 @@ const Planes = forwardRef(({ selectedPlan, selectedCategory }, ref) => {
                   </span>
                 </div>
               )}
-              
+
               <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-white mb-4">{plan.name}</h3>
+                {/* Título (nombre del plan) en Queering */}
+                <h3 className="font-queering text-2xl font-bold text-white mb-4">
+                  {plan.name}
+                </h3>
+
                 <div className="flex items-end justify-center gap-1">
-                  <span className="text-5xl font-bold text-white">{plan.price}</span>
+                  {/* Precio en Queering */}
+                  <span className="font-queering text-5xl font-bold text-white">
+                    {plan.price}
+                  </span>
+
+                  {/* Periodo en Gilroy */}
                   <span className="text-white/70 mb-2">{plan.period}</span>
                 </div>
               </div>
