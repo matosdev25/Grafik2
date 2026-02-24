@@ -1,0 +1,11 @@
+{
+  "name": "grafik2",
+  "version": "1.0.0",
+  "scripts": {
+    "build:css": "tailwindcss build src/index.css -o dist/output.css"
+  },
+  "dependencies": {
+    "date-fns": "^3.6.0",
+    "tailwindcss": "^2.2.19" 
+  }
+}
