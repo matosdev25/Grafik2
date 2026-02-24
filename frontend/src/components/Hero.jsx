@@ -48,41 +48,82 @@ const Hero = () => {
   return (
     <section className="font-gilroy pt-24 sm:pt-28 lg:pt-32 pb-16 lg:pb-20 px-4 overflow-x-hidden">
       <div className="max-w-7xl mx-auto">
-        {/* Offer Banner (más angosto en móvil) */}
+        {/* Offer Banner */}
         <div className="mb-10 lg:mb-16 flex justify-center">
           <div className="w-full max-w-[520px] sm:max-w-2xl lg:max-w-[980px] bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl lg:rounded-full px-4 py-4 sm:px-6 lg:px-8 lg:py-4 shadow-2xl shadow-black/20">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-              <div className="min-w-0">
-                <div className="flex items-center gap-2">
+            {/* MÓVIL: centrado */}
+            <div className="lg:hidden">
+              <div className="space-y-1 text-center">
+                <div className="flex items-center justify-center gap-2">
                   <span className="text-xl">🔥</span>
-                  <span className="text-white/90 text-sm sm:text-base font-medium min-w-0">
-                    <span className="font-queering font-bold text-white">
-                      Oferta Especial:
-                    </span>{" "}
-                    ¡20% de descuento en todos los planes!
+                  <span className="font-queering font-bold text-white text-sm sm:text-base">
+                    Oferta Especial:
                   </span>
                 </div>
 
-                <div className="text-white/70 text-sm sm:text-base mt-1">
+                <div className="text-white/90 text-sm sm:text-base font-medium">
+                  ¡20% de descuento en todos los planes!
+                </div>
+
+                <div className="text-white/70 text-sm sm:text-base">
                   Termina en:
                 </div>
               </div>
 
-              {/* Timer: 2 columnas en móvil, 4 en sm+ */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 w-full lg:w-auto">
-                {timerItems.map((x) => (
-                  <div
-                    key={x.l}
-                    className="bg-teal-500/20 backdrop-blur-sm border border-teal-400/30 rounded-xl px-3 py-2 text-center"
-                  >
-                    <div className="text-white font-bold text-lg leading-5">
-                      {x.v}
+              <div className="mt-3 flex justify-center">
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3 w-full">
+                  {timerItems.map((x) => (
+                    <div
+                      key={x.l}
+                      className="bg-teal-500/20 backdrop-blur-sm border border-teal-400/30 rounded-xl px-3 py-2 text-center"
+                    >
+                      <div className="text-white font-bold text-lg leading-5">
+                        {x.v}
+                      </div>
+                      <div className="text-[10px] text-white/70 leading-3 mt-1">
+                        {x.l}
+                      </div>
                     </div>
-                    <div className="text-[10px] text-white/70 leading-3 mt-1">
-                      {x.l}
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* ESCRITORIO: una línea + "Termina en:" pegado al contador */}
+            <div className="hidden lg:flex items-center justify-between gap-6">
+              {/* Texto */}
+              <div className="flex items-center gap-3 min-w-0 flex-1">
+                <span className="text-xl">🔥</span>
+
+                <span className="text-white/90 text-base font-medium min-w-0 truncate whitespace-nowrap">
+                  <span className="font-queering font-bold text-white">
+                    Oferta Especial:
+                  </span>{" "}
+                  ¡20% de descuento en todos los planes!
+                </span>
+              </div>
+
+              {/* Derecha: label + contador */}
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <span className="text-white/70 text-base whitespace-nowrap">
+                  Termina en:
+                </span>
+
+                <div className="grid grid-cols-4 gap-3">
+                  {timerItems.map((x) => (
+                    <div
+                      key={x.l}
+                      className="bg-teal-500/20 backdrop-blur-sm border border-teal-400/30 rounded-xl px-3 py-2 text-center"
+                    >
+                      <div className="text-white font-bold text-lg leading-5">
+                        {x.v}
+                      </div>
+                      <div className="text-[11px] text-white/70 leading-3 mt-1">
+                        {x.l}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -116,11 +157,14 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Cards (más compactas en móvil) */}
+          {/* Right Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-black/20 hover:bg-white/10 transition-all duration-300 group">
               <div className="bg-gradient-to-br from-teal-500/20 to-teal-600/10 rounded-2xl aspect-[3/2] sm:aspect-[3/4] flex items-center justify-center mb-5 sm:mb-6 group-hover:from-teal-500/30 group-hover:to-teal-600/20 transition-all duration-300">
-                <Play className="w-14 h-14 sm:w-16 sm:h-16 text-teal-400" strokeWidth={1.5} />
+                <Play
+                  className="w-14 h-14 sm:w-16 sm:h-16 text-teal-400"
+                  strokeWidth={1.5}
+                />
               </div>
               <h3 className="text-white font-bold text-xl mb-2">Videos</h3>
               <p className="text-white/60 text-sm">Contenido profesional</p>
@@ -128,7 +172,10 @@ const Hero = () => {
 
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-black/20 hover:bg-white/10 transition-all duration-300 group">
               <div className="bg-gradient-to-br from-teal-500/20 to-teal-600/10 rounded-2xl aspect-[3/2] sm:aspect-[3/4] flex items-center justify-center mb-5 sm:mb-6 group-hover:from-teal-500/30 group-hover:to-teal-600/20 transition-all duration-300">
-                <Sparkles className="w-14 h-14 sm:w-16 sm:h-16 text-teal-400" strokeWidth={1.5} />
+                <Sparkles
+                  className="w-14 h-14 sm:w-16 sm:h-16 text-teal-400"
+                  strokeWidth={1.5}
+                />
               </div>
               <h3 className="text-white font-bold text-xl mb-2">Diseños</h3>
               <p className="text-white/60 text-sm">Creatividad única</p>
@@ -137,17 +184,21 @@ const Hero = () => {
             <div className="sm:col-span-2 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-black/20 hover:bg-white/10 transition-all duration-300 group">
               <div className="flex items-center gap-5 sm:gap-6">
                 <div className="bg-gradient-to-br from-teal-500/20 to-teal-600/10 rounded-2xl w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center group-hover:from-teal-500/30 group-hover:to-teal-600/20 transition-all duration-300">
-                  <Target className="w-10 h-10 sm:w-12 sm:h-12 text-teal-400" strokeWidth={1.5} />
+                  <Target
+                    className="w-10 h-10 sm:w-12 sm:h-12 text-teal-400"
+                    strokeWidth={1.5}
+                  />
                 </div>
                 <div>
-                  <h3 className="text-white font-bold text-2xl mb-1">Proyectos</h3>
+                  <h3 className="text-white font-bold text-2xl mb-1">
+                    Proyectos
+                  </h3>
                   <p className="text-white/60">+500 trabajos completados</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );
