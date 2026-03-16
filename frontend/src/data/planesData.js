@@ -5,11 +5,9 @@ export const planesData = {
       name: 'Mini Grafik',
       price: '$60',
       period: '/mes',
-      features: [
-        '4 Flyers mensuales',
-        'Revisiones ilimitadas',
-        'Formatos digitales'
-      ],
+      subtitle: '4 Flyers Mensuales',
+      description:
+        'Ideal para pequeños negocios que necesitan presencia visual constante con un flujo simple y profesional.',
       popular: false
     },
     {
@@ -17,12 +15,9 @@ export const planesData = {
       name: 'Grafik Media',
       price: '$120',
       period: '/mes',
-      features: [
-        '8 Flyers mensuales',
-        'Revisiones ilimitadas',
-        'Todos los formatos',
-        'Soporte prioritario'
-      ],
+      subtitle: '8 Flyers Mensuales',
+      description:
+        'Pensado para negocios que quieren mantener su contenido fresco y constante durante el mes.',
       popular: true
     },
     {
@@ -30,60 +25,41 @@ export const planesData = {
       name: 'Multi Grafik',
       price: '$180',
       period: '/mes',
-      features: [
-        '12 Flyers mensuales',
-        'Revisiones ilimitadas',
-        'Todos los formatos',
-        'Gerente dedicado',
-        'Branding completo'
-      ],
+      subtitle: '12 Flyers Mensuales',
+      description:
+        'El paquete más completo para marcas que quieren dominar las redes con contenido audiovisual profesional y constante.',
       popular: false
     }
   ],
-  videos: [
+  contenido: [
     {
-      id: 'basico',
-      name: 'Básico',
-      price: '$149',
+      id: 'babymovie',
+      name: 'BABY MOVIE',
+      price: '$150',
       period: '/mes',
-      features: [
-        '2 videos mensuales',
-        'Hasta 30 segundos',
-        'Edición básica',
-        '2 revisiones',
-        'Música de stock'
-      ],
+      subtitle: '4 Videos Mensuales',
+      description:
+        'Perfecto para quienes están iniciando y desean contenido profesional sin complicaciones.',
       popular: false
     },
     {
-      id: 'profesional',
-      name: 'Profesional',
+      id: 'mediamovie',
+      name: 'MEDIA MOVIE',
       price: '$299',
       period: '/mes',
-      features: [
-        '5 videos mensuales',
-        'Hasta 60 segundos',
-        'Edición avanzada',
-        'Revisiones ilimitadas',
-        'Motion graphics',
-        'Música premium'
-      ],
+      subtitle: '8 Videos Mensuales',
+      description:
+        'Ideal para marcas que quieren publicar con más impacto y mantener una estrategia visual más activa.',
       popular: true
     },
     {
-      id: 'empresarial',
-      name: 'Empresarial',
-      price: '$599',
+      id: 'supermovie',
+      name: 'SUPER MOVIE',
+      price: '$450',
       period: '/mes',
-      features: [
-        'Videos ilimitados',
-        'Sin límite de duración',
-        'Edición profesional',
-        'Revisiones ilimitadas',
-        'Animación 3D',
-        'Locución profesional',
-        'Subtítulos incluidos'
-      ],
+      subtitle: 'Producción de Alto Nivel',
+      description:
+        'El paquete más completo para marcas que quieren dominar las redes con contenido audiovisual profesional y constante.',
       popular: false
     }
   ],
@@ -93,12 +69,9 @@ export const planesData = {
       name: 'Mini Combi',
       price: '$120',
       period: '/mes',
-      features: [
-        '4 Flyers + 4 video',
-        'Revisiones ilimitadas',
-        'Todos los formatos',
-        '20% de descuento'
-      ],
+      subtitle: '4 Flyers + 4 Videos',
+      description:
+        'Ideal para marcas pequeñas o personales que están comenzando y quieren mantener sus redes activas sin invertir demasiado.',
       popular: false
     },
     {
@@ -106,13 +79,9 @@ export const planesData = {
       name: 'Combi Mediana',
       price: '$240',
       period: '/mes',
-      features: [
-        '8 Flyers + 8 videos',
-        'Revisiones ilimitadas',
-        'Todos los formatos',
-        'Soporte prioritario',
-        '25% de descuento'
-      ],
+      subtitle: '8 Flyers + 8 Videos',
+      description:
+        'Perfecta para negocios en crecimiento que buscan una presencia constante y variada en redes.',
       popular: true
     },
     {
@@ -120,14 +89,9 @@ export const planesData = {
       name: 'Super Combi',
       price: '$350',
       period: '/mes',
-      features: [
-        '12 Flyers + 12 videos',
-        'Revisiones ilimitadas',
-        'Todos los formatos',
-        'Gerente dedicado',
-        'Branding completo',
-        '30% de descuento'
-      ],
+      subtitle: '12 Flyers + 12 Videos',
+      description:
+        'Diseñada para marcas consolidadas o que quieren estar siempre activas con contenido constante y profesional.',
       popular: false
     }
   ]

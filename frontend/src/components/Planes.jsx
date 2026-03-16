@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect, forwardRef } from 'react';
-import { Check } from 'lucide-react';
 import { planesData } from '../data/planesData';
 
 const Planes = forwardRef(({ selectedPlan, selectedCategory }, ref) => {
@@ -8,7 +7,7 @@ const Planes = forwardRef(({ selectedPlan, selectedCategory }, ref) => {
 
   const tabs = [
     { id: 'diseno', label: 'Diseño Gráfico' },
-    { id: 'videos', label: 'Creación de Videos' },
+    { id: 'contenido', label: 'Creación de Videos' },
     { id: 'combos', label: 'Combos completas' }
   ];
 
@@ -33,6 +32,7 @@ const Planes = forwardRef(({ selectedPlan, selectedCategory }, ref) => {
           'ring-offset-2',
           'ring-offset-transparent'
         );
+
         setTimeout(() => {
           cardRefs.current[selectedPlan]?.classList.remove(
             'ring-2',
@@ -50,7 +50,6 @@ const Planes = forwardRef(({ selectedPlan, selectedCategory }, ref) => {
   return (
     <section className="font-gilroy py-20 px-4" id="planes" ref={ref}>
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-16">
           <h2 className="font-queering text-5xl font-bold text-white mb-4">
             Planes
@@ -60,7 +59,6 @@ const Planes = forwardRef(({ selectedPlan, selectedCategory }, ref) => {
           </p>
         </div>
 
-        {/* Tabs */}
         <div className="flex justify-center mb-16">
           <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-full p-2 inline-flex gap-2">
             {tabs.map((tab) => (
@@ -79,18 +77,19 @@ const Planes = forwardRef(({ selectedPlan, selectedCategory }, ref) => {
           </div>
         </div>
 
-        {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {plans.map((plan, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch mt-8">
+          {plans.map((plan) => (
             <div
               key={plan.id}
               ref={(el) => (cardRefs.current[plan.id] = el)}
-              className={`relative bg-white/5 backdrop-blur-xl border rounded-3xl p-8 shadow-2xl shadow-black/20 hover:bg-white/10 transition-all duration-500 hover:scale-105 ${
-                plan.popular ? 'border-teal-400/50' : 'border-white/10'
+              className={`relative bg-white/5 backdrop-blur-xl border rounded-3xl shadow-2xl shadow-black/20 transition-all duration-500 flex flex-col h-full ${
+                plan.popular
+                  ? 'border-teal-400/50 md:scale-105 md:-translate-y-2 z-10 px-8 py-10 min-h-[520px] hover:bg-white/10 hover:md:scale-[1.08] hover:shadow-lg hover:shadow-teal-500/30'
+                  : 'border-white/10 px-8 py-8 min-h-[480px] hover:bg-white/10 hover:scale-105'
               }`}
             >
               {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2">
                   <span className="bg-teal-500 text-white px-6 py-1.5 rounded-full text-sm font-semibold shadow-lg shadow-teal-500/30">
                     Popular
                   </span>
@@ -98,32 +97,28 @@ const Planes = forwardRef(({ selectedPlan, selectedCategory }, ref) => {
               )}
 
               <div className="text-center mb-8">
-                {/* Título (nombre del plan) en Queering */}
                 <h3 className="font-queering text-2xl font-bold text-white mb-4">
                   {plan.name}
                 </h3>
 
                 <div className="flex items-end justify-center gap-1">
-                  {/* Precio en Queering */}
                   <span className="font-queering text-5xl font-bold text-white">
                     {plan.price}
                   </span>
-
-                  {/* Periodo en Gilroy */}
                   <span className="text-white/70 mb-2">{plan.period}</span>
                 </div>
               </div>
 
-              <ul className="space-y-4 mb-8">
-                {plan.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-white/80">{feature}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="text-center mb-8 flex-1 flex flex-col justify-center">
+                <h4 className="text-white text-xl font-bold mb-3">
+                  {plan.subtitle}
+                </h4>
+                <p className="text-white/70 text-sm leading-7 max-w-[240px] mx-auto">
+                  {plan.description}
+                </p>
+              </div>
 
-              <button className="w-full bg-teal-500 hover:bg-teal-400 text-white py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-teal-500/30">
+              <button className="mt-auto w-full bg-teal-500 hover:bg-teal-400 text-white py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-teal-500/30">
                 Elegir plan
               </button>
             </div>

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, forwardRef } from 'react';
-import { FileText, Video, Palette, ArrowRight } from 'lucide-react';
+import { FileText, Palette, ArrowRight } from 'lucide-react';
 import { pedirData } from '../data/pedirData';
 
 const Pedir = forwardRef(({ selectedTab: initialTab }, ref) => {
@@ -8,7 +8,6 @@ const Pedir = forwardRef(({ selectedTab: initialTab }, ref) => {
 
   const tabs = [
     { id: 'flyers', label: 'Flyers', icon: FileText },
-    { id: 'video', label: 'Video', icon: Video },
     { id: 'logo', label: 'Logo', icon: Palette }
   ];
 
@@ -31,7 +30,6 @@ const Pedir = forwardRef(({ selectedTab: initialTab }, ref) => {
         if (serviceSelect) {
           const serviceMap = {
             flyers: 'diseno',
-            video: 'video',
             logo: 'logo'
           };
           serviceSelect.value = serviceMap[activeTab] || 'diseno';
@@ -43,13 +41,11 @@ const Pedir = forwardRef(({ selectedTab: initialTab }, ref) => {
   return (
     <section className="font-gilroy py-20 px-4" id="pedir" ref={ref}>
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-16">
           <h2 className="font-queering text-5xl font-bold text-white mb-4">Pedir</h2>
           <p className="text-white/70 text-lg">Selecciona el servicio que necesitas</p>
         </div>
 
-        {/* Tabs (se quedan en Gilroy) */}
         <div className="flex justify-center mb-16">
           <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-full p-2 inline-flex gap-2">
             {tabs.map((tab) => {
@@ -72,36 +68,32 @@ const Pedir = forwardRef(({ selectedTab: initialTab }, ref) => {
           </div>
         </div>
 
-        {/* Product Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 items-stretch">
           {products.map((product, index) => (
             <div
               key={product.id}
-              className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl shadow-black/20 hover:bg-white/10 transition-all duration-500 hover:scale-105"
+              className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl shadow-black/20 hover:bg-white/10 transition-all duration-500 hover:scale-105 flex flex-col h-full"
               style={{ animation: `fadeIn 0.5s ease-out ${index * 0.1}s both` }}
             >
-              {/* Título del producto en Queering */}
               <h3 className="font-queering text-2xl font-bold text-white mb-3">
                 {product.name}
               </h3>
 
-              <p className="text-white/60 text-sm mb-6 leading-relaxed min-h-[60px]">
+              <p className="text-white/60 text-sm mb-6 leading-relaxed min-h-[60px] flex-1">
                 {product.description}
               </p>
 
-              {/* Precio en Queering */}
               <p className="font-queering text-4xl font-bold text-teal-400 mb-6">
                 {product.price}
               </p>
 
-              <button className="w-full bg-teal-500 hover:bg-teal-400 text-white py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-teal-500/30">
+              <button className="mt-auto w-full bg-teal-500 hover:bg-teal-400 text-white py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-teal-500/30">
                 Ordenar ahora
               </button>
             </div>
           ))}
         </div>
 
-        {/* CTA Button (Gilroy) */}
         <div className="flex justify-center">
           <button
             onClick={handleIrAPedir}
