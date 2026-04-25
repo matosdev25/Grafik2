@@ -5,11 +5,11 @@ import { WHATSAPP_URL } from "@/lib/utils";
 const HERO_VIDEO_SRC = `${process.env.PUBLIC_URL}/videos/hero-video.mp4`;
 
 const DESIGN_SLIDES = [
-  `${process.env.PUBLIC_URL}/images/design/design-1.png`,
-  `${process.env.PUBLIC_URL}/images/design/design-2.png`,
-  `${process.env.PUBLIC_URL}/images/design/design-3.png`,
-  `${process.env.PUBLIC_URL}/images/design/design-4.png`,
-  `${process.env.PUBLIC_URL}/images/design/design-5.png`,
+  `${process.env.PUBLIC_URL}/images/portfolio/proyecto-1.PNG`,
+  `${process.env.PUBLIC_URL}/images/portfolio/proyecto-2.PNG`,
+  `${process.env.PUBLIC_URL}/images/portfolio/proyecto-3.PNG`,
+  `${process.env.PUBLIC_URL}/images/portfolio/proyecto-4.PNG`,
+  `${process.env.PUBLIC_URL}/images/portfolio/proyecto-5.PNG`,
 ];
 
 const getNextMonthStart = (from = new Date()) =>
