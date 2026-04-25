@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback, memo } from "react";
 import { MessageCircle, Eye, Target } from "lucide-react";
 import { WHATSAPP_URL } from "@/lib/utils";
+import slide1 from "../assets/design/design-1.png";
+import slide2 from "../assets/design/design-2.png";
+import slide3 from "../assets/design/design-3.png";
+import slide4 from "../assets/design/design-4.png";
+import slide5 from "../assets/design/design-5.png";
 
 const HERO_VIDEO_SRC = "/videos/hero-video.mp4";
 
-const DESIGN_SLIDES = [
-  "/images/design/design-1.png",
-  "/images/design/design-2.png",
-  "/images/design/design-3.png",
-  "/images/design/design-4.png",
-  "/images/design/design-5.png",
-];
+const DESIGN_SLIDES = [slide1, slide2, slide3, slide4, slide5];
 
 const getNextMonthStart = (from = new Date()) =>
   new Date(from.getFullYear(), from.getMonth() + 1, 1, 0, 0, 0, 0);
