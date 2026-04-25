@@ -2,41 +2,29 @@ export const pedirData = {
   flyers: [
     {
       id: 'impresion',
-      name: 'Flyer para Impresion',
-      description: 'Diseño optimizado para impresión con alta resolución perfecto para eventos, promociones o restaurantes',
-      price: '$25'
+      name: 'Flyer para Impresión',
+      description: 'Diseño optimizado para impresión con alta resolución, perfecto para eventos, promociones o restaurantes.',
+      price: '$25',
     },
     {
       id: 'redessociales',
       name: 'Flyer para Redes Sociales',
-      description: 'Diseño adaptado para plataformas sociales con formato cuadrado o vertical, ideal para promociones online y eventos digitales',
-      price: '$20'
+      description: 'Diseño adaptado para plataformas sociales con formato cuadrado o vertical, ideal para promociones online.',
+      price: '$20',
     },
-    {
-      id: 'pack5',
-      name: 'Pack 5 Flyers',
-      description: '5 diseños únicos para diferentes ocasiones',
-      price: '$99'
-    }
   ],
-  logo: [
+  video: [
     {
-      id: 'basico',
-      name: 'Logo Básico',
-      description: 'Diseño Logo base - Versión Positivo y Negativo - Paleta de Colores - Archivo Ilustrator.',
-      price: '$150'
+      id: 'edicion',
+      name: 'Solo Edición',
+      description: 'Edición profesional de tu material grabado. Entrega en formato optimizado para redes sociales con corrección de color y audio.',
+      price: '$65',
     },
     {
-      id: 'pro',
-      name: 'Logo Pro',
-      description: 'Diseño Logo - 2 variantes de Logo - Versión Positivo y Negativo - Paleta de Colores - Archivo Ilustrator.',
-      price: '$250'
+      id: 'grabacion',
+      name: 'Grabación',
+      description: 'Sesión de grabación profesional con equipo de calidad.',
+      price: '$25',
     },
-    {
-      id: 'identidad',
-      name: 'Identidad Visual',
-      description: 'Logotipo - Paleta de Colores - Tipografía Corporativa - Imaginería y Estilo fotográfico - Aplicaciones Visuales - Isotipo - Imagotipo - Isologo - Retícula o Sistema de Composición - Manual de Marca.',
-      price: '$500'
-    }
-  ]
+  ],
 };

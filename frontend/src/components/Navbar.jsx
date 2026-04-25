@@ -1,139 +1,240 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  memo,
+} from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
+import { WHATSAPP_URL } from "@/lib/utils";
+
+const DROPDOWN_DATA = {
+  planes: [
+    { id: "combos", label: "Combis", category: "combos", plan: "combimediana" },
+    { id: "diseno", label: "Diseño Gráfico", category: "diseno", plan: "gmedia" },
+    { id: "combiCompleta", label: "Combi Completa", category: "combiCompleta", plan: "combicompleta" },
+    { id: "contenido", label: "Creación de Video", category: "contenido", plan: "mediamovie" },
+    { id: "logo", label: "Logo", category: "logo", plan: "logobasico" },
+  ],
+  pedir: [
+    { id: "flyers", label: "Flyers", tab: "flyers" },
+    { id: "video", label: "Video", tab: "video" },
+  ],
+  render: [
+    { id: "render", label: "Render", section: "arquitectura" },
+    { id: "modelados", label: "Renders y Modelados 3D", section: "arquitectura" },
+    { id: "modelados3d", label: "Modelados 3D", section: "arquitectura" },
+  ],
+};
+
+const TRACKED_SECTIONS = ["planes", "pedir", "arquitectura", "eventos", "portafolio", "contacto"];
+
+const DesktopDropdownMenu = memo(function DesktopDropdownMenu({
+  items,
+  section,
+  isOpen,
+  onMouseEnter,
+  onMouseLeave,
+  onItemClick,
+}) {
+  return (
+    <div
+      className={[
+        "absolute top-full left-1/2 -translate-x-1/2 mt-3 min-w-[220px]",
+        "bg-white border border-gray-200",
+        "rounded-2xl shadow-xl py-2 z-50",
+        "origin-top transition-all duration-300 ease-out",
+        isOpen
+          ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
+          : "opacity-0 -translate-y-1 scale-[0.98] pointer-events-none",
+      ].join(" ")}
+      onMouseEnter={() => onMouseEnter(section)}
+      onMouseLeave={onMouseLeave}
+      role="menu"
+      aria-label={`${section}-menu`}
+    >
+      {items.map((item, index) => (
+        <React.Fragment key={item.id}>
+          <button
+            type="button"
+            onClick={() => onItemClick(item, section)}
+            className="w-full text-left px-4 py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors text-sm font-medium"
+            role="menuitem"
+          >
+            {item.label}
+          </button>
+          {index < items.length - 1 && (
+            <div className="mx-2 border-t border-gray-100" />
+          )}
+        </React.Fragment>
+      ))}
+    </div>
+  );
+});
+
+const MobileDropdownInline = memo(function MobileDropdownInline({
+  items,
+  section,
+  isOpen,
+  onItemClick,
+}) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="mt-2 space-y-1 rounded-xl bg-gray-50 border border-gray-200 p-2">
+      {items.map((item) => (
+        <button
+          key={item.id}
+          type="button"
+          onClick={() => onItemClick(item, section)}
+          className="w-full text-left px-3 py-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors text-sm font-medium"
+        >
+          {item.label}
+        </button>
+      ))}
+    </div>
+  );
+});
 
 const Navbar = ({ onNavigate }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [activeSection, setActiveSection] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeTimeoutRef = useRef(null);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    const mediaQuery = window.matchMedia("(max-width: 1023px)");
+    const handleMediaChange = (event) => setIsMobile(event.matches);
+    setIsMobile(mediaQuery.matches);
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener("change", handleMediaChange);
+    } else {
+      mediaQuery.addListener(handleMediaChange);
+    }
+    return () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener("change", handleMediaChange);
+      } else {
+        mediaQuery.removeListener(handleMediaChange);
+      }
+      if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    };
   }, []);
 
   useEffect(() => {
-    if (!isMobile) setIsMenuOpen(false);
+    if (!isMobile) {
+      setIsMenuOpen(false);
+      setActiveDropdown(null);
+    }
   }, [isMobile]);
 
-  const dropdownData = {
-    planes: [
-      { id: "basico", label: "Plan Básico", category: "diseno", plan: "basico" },
-      { id: "pro", label: "Plan Pro", category: "diseno", plan: "profesional" },
-      { id: "premium", label: "Plan Premium", category: "diseno", plan: "empresarial" },
-    ],
-    pedir: [
-      { id: "flyers", label: "Flyers", tab: "flyers" },
-      { id: "video", label: "Video", tab: "video" },
-      { id: "logo", label: "Logo", tab: "logo" },
-    ],
-    arquitectura: [
-      { id: "planos", label: "Planos", section: "arquitectura" },
-      { id: "renders", label: "Renders", section: "arquitectura" },
-    ],
-  };
+  useEffect(() => {
+    const observers = [];
 
-  const handleMouseEnter = (dropdown) => {
-    if (isMobile) return;
-    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
-    setActiveDropdown(dropdown);
-  };
+    TRACKED_SECTIONS.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveSection(id);
+        },
+        { threshold: 0.2 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
 
-  const handleMouseLeave = () => {
-    if (isMobile) return;
-    closeTimeoutRef.current = setTimeout(() => setActiveDropdown(null), 160);
-  };
+    return () => observers.forEach((obs) => obs.disconnect());
+  }, []);
 
-  const handleClick = (dropdown) => {
-    // En móvil, toggle dropdown inline
-    if (!isMobile) return;
-    setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
-  };
-
-  const handleMenuItemClick = (item, section) => {
+  const scrollToSection = useCallback((id) => {
     setActiveDropdown(null);
     setIsMenuOpen(false);
-    if (onNavigate) onNavigate(section, item);
-  };
+    const element = document.getElementById(id);
+    if (element) element.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
 
-  const DesktopDropdownMenu = ({ items, section, isOpen }) => {
-    return (
-      <div
-        className={[
-          "absolute top-full left-1/2 -translate-x-1/2 mt-3 min-w-[220px]",
-          "bg-black/75 backdrop-blur-xl border border-white/10",
-          "rounded-2xl shadow-2xl shadow-black/60 py-2 z-50",
-          "origin-top transition-all duration-300 ease-out",
-          isOpen
-            ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
-            : "opacity-0 -translate-y-1 scale-[0.98] pointer-events-none",
-        ].join(" ")}
-        onMouseEnter={() => handleMouseEnter(section)}
-        onMouseLeave={handleMouseLeave}
-        role="menu"
-        aria-label={`${section}-menu`}
-      >
-        {items.map((item, index) => (
-          <React.Fragment key={item.id}>
-            <button
-              type="button"
-              onClick={() => handleMenuItemClick(item, section)}
-              className="w-full text-left px-4 py-3 text-white/95 hover:text-white hover:bg-white/10 transition-colors text-sm font-medium"
-              role="menuitem"
-            >
-              {item.label}
-            </button>
-            {index < items.length - 1 && <div className="mx-2 border-t border-white/10" />}
-          </React.Fragment>
-        ))}
-      </div>
-    );
-  };
+  const handleMouseEnter = useCallback(
+    (dropdown) => {
+      if (isMobile) return;
+      if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+      setActiveDropdown(dropdown);
+    },
+    [isMobile]
+  );
 
-  const MobileDropdownInline = ({ items, section, isOpen }) => {
-    if (!isOpen) return null;
-    return (
-      <div className="mt-2 space-y-1 rounded-xl bg-white/5 border border-white/10 p-2">
-        {items.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => handleMenuItemClick(item, section)}
-            className="w-full text-left px-3 py-2 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition-colors text-sm font-medium"
-          >
-            {item.label}
-          </button>
-        ))}
-      </div>
-    );
-  };
+  const handleMouseLeave = useCallback(() => {
+    if (isMobile) return;
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    closeTimeoutRef.current = setTimeout(() => setActiveDropdown(null), 160);
+  }, [isMobile]);
+
+  const handleClick = useCallback(
+    (dropdown) => {
+      if (!isMobile) return;
+      setActiveDropdown((prev) => (prev === dropdown ? null : dropdown));
+    },
+    [isMobile]
+  );
+
+  const handleMenuItemClick = useCallback(
+    (item, section) => {
+      setActiveDropdown(null);
+      setIsMenuOpen(false);
+      if (onNavigate) onNavigate(section, item);
+    },
+    [onNavigate]
+  );
+
+  const toggleMobileMenu = useCallback(() => setIsMenuOpen((prev) => !prev), []);
+
+  const navLink = (section) =>
+    `text-[13px] font-medium transition-colors whitespace-nowrap ${
+      activeSection === section ? "text-teal-600" : "text-gray-700 hover:text-teal-600"
+    }`;
+
+  const dropdownTrigger = (section) =>
+    `flex items-center gap-1 text-[13px] font-medium transition-colors whitespace-nowrap ${
+      activeSection === section ? "text-teal-600" : "text-gray-700 hover:text-teal-600"
+    }`;
 
   return (
-    <div className="fixed top-3 left-1/2 -translate-x-1/2 z-50 w-full max-w-[900px] px-3">
-      <nav className="font-gilroy bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl lg:rounded-full shadow-2xl shadow-black/20">
+    <div className="fixed top-3 left-1/2 -translate-x-1/2 z-50 w-full max-w-5xl px-3">
+      <nav className="font-gilroy bg-white/90 backdrop-blur-xl border border-gray-200 rounded-2xl lg:rounded-full shadow-sm shadow-gray-200/80">
         <div className="px-5 py-3 lg:px-8 lg:py-4 flex items-center justify-between gap-3">
-          {/* Logo */}
-          <div className="flex items-center gap-2 min-w-0">
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="flex items-center gap-2 min-w-0"
+            aria-label="Ir al inicio"
+          >
             <img
               src={`${process.env.PUBLIC_URL}/logo.png`}
               alt="GRAFIK2"
               className="h-6 w-6 object-contain"
             />
-            <span className="font-queering text-white font-bold text-lg tracking-tight whitespace-nowrap">
+            <span className="font-queering text-gray-900 font-bold text-lg tracking-tight whitespace-nowrap">
               GRAFIK2®
             </span>
-          </div>
+          </button>
 
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center gap-8">
-            <a
-              href="#quienes-somos"
-              className="text-white/90 hover:text-white text-sm font-medium transition-colors"
+          <div className="hidden lg:flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => scrollToSection("quienes-somos")}
+              className={navLink(null)}
             >
               ¿Quiénes somos?
-            </a>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => scrollToSection("portafolio")}
+              className={navLink("portafolio")}
+            >
+              Portafolio
+            </button>
 
             <div
               className="relative z-50"
@@ -142,17 +243,19 @@ const Navbar = ({ onNavigate }) => {
             >
               <button
                 type="button"
-                onClick={() => {}}
-                className="flex items-center gap-1 text-white/90 hover:text-white text-sm font-medium transition-colors"
+                className={dropdownTrigger("planes")}
                 aria-haspopup="menu"
                 aria-expanded={activeDropdown === "planes"}
               >
-                Planes <ChevronDown className="w-4 h-4" />
+                Producción <ChevronDown className="w-3.5 h-3.5" />
               </button>
               <DesktopDropdownMenu
-                items={dropdownData.planes}
+                items={DROPDOWN_DATA.planes}
                 section="planes"
                 isOpen={activeDropdown === "planes"}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                onItemClick={handleMenuItemClick}
               />
             </div>
 
@@ -163,110 +266,162 @@ const Navbar = ({ onNavigate }) => {
             >
               <button
                 type="button"
-                onClick={() => {}}
-                className="flex items-center gap-1 text-white/90 hover:text-white text-sm font-medium transition-colors"
+                className={dropdownTrigger("pedir")}
                 aria-haspopup="menu"
                 aria-expanded={activeDropdown === "pedir"}
               >
-                Pedir <ChevronDown className="w-4 h-4" />
+                Pedir <ChevronDown className="w-3.5 h-3.5" />
               </button>
               <DesktopDropdownMenu
-                items={dropdownData.pedir}
+                items={DROPDOWN_DATA.pedir}
                 section="pedir"
                 isOpen={activeDropdown === "pedir"}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                onItemClick={handleMenuItemClick}
               />
             </div>
 
             <div
               className="relative z-50"
-              onMouseEnter={() => handleMouseEnter("arquitectura")}
+              onMouseEnter={() => handleMouseEnter("render")}
               onMouseLeave={handleMouseLeave}
             >
               <button
                 type="button"
-                onClick={() => {}}
-                className="flex items-center gap-1 text-white/90 hover:text-white text-sm font-medium transition-colors"
+                className={dropdownTrigger("arquitectura")}
                 aria-haspopup="menu"
-                aria-expanded={activeDropdown === "arquitectura"}
+                aria-expanded={activeDropdown === "render"}
               >
-                Arquitectura <ChevronDown className="w-4 h-4" />
+                Render 3D <ChevronDown className="w-3.5 h-3.5" />
               </button>
               <DesktopDropdownMenu
-                items={dropdownData.arquitectura}
-                section="arquitectura"
-                isOpen={activeDropdown === "arquitectura"}
+                items={DROPDOWN_DATA.render}
+                section="render"
+                isOpen={activeDropdown === "render"}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                onItemClick={handleMenuItemClick}
               />
             </div>
-          </div>
-
-          {/* Right side: CTA desktop + menu button mobile */}
-          <div className="flex items-center gap-2">
-            <button className="hidden lg:inline-flex bg-teal-500 hover:bg-teal-400 text-white px-6 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-teal-500/30">
-              CONTÁCTENOS
-            </button>
 
             <button
               type="button"
-              className="lg:hidden bg-white/5 hover:bg-white/10 border border-white/10 text-white h-10 w-10 rounded-xl flex items-center justify-center"
-              onClick={() => setIsMenuOpen((v) => !v)}
+              onClick={() => scrollToSection("eventos")}
+              className={navLink("eventos")}
+            >
+              Eventos
+            </button>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden lg:inline-flex bg-teal-500 hover:bg-teal-600 text-white px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105 hover:shadow-md hover:shadow-teal-500/20 whitespace-nowrap"
+            >
+              CONTÁCTENOS
+            </a>
+
+            <button
+              type="button"
+              className="lg:hidden bg-gray-100 hover:bg-gray-200 border border-gray-200 text-gray-700 h-10 w-10 rounded-xl flex items-center justify-center transition-colors"
+              onClick={toggleMobileMenu}
               aria-label="Abrir menú"
+              aria-expanded={isMenuOpen}
             >
               {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu Panel */}
         {isMenuOpen && (
           <div className="lg:hidden px-5 pb-4">
             <div className="mt-2 space-y-3">
-              <a
-                href="#quienes-somos"
-                className="block text-white/90 hover:text-white text-sm font-medium"
-                onClick={() => setIsMenuOpen(false)}
+              <button
+                type="button"
+                className="block w-full text-left text-gray-700 hover:text-teal-600 text-sm font-medium"
+                onClick={() => scrollToSection("quienes-somos")}
               >
                 ¿Quiénes somos?
-              </a>
+              </button>
+
+              <button
+                type="button"
+                className="block w-full text-left text-gray-700 hover:text-teal-600 text-sm font-medium"
+                onClick={() => scrollToSection("portafolio")}
+              >
+                Portafolio
+              </button>
 
               <div>
                 <button
                   type="button"
                   onClick={() => handleClick("planes")}
-                  className="w-full flex items-center justify-between text-white/90 hover:text-white text-sm font-medium"
+                  className="w-full flex items-center justify-between text-gray-700 hover:text-teal-600 text-sm font-medium"
                 >
-                  <span>Planes</span>
+                  <span>Producción creativa y branding</span>
                   <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === "planes" ? "rotate-180" : ""}`} />
                 </button>
-                <MobileDropdownInline items={dropdownData.planes} section="planes" isOpen={activeDropdown === "planes"} />
+                <MobileDropdownInline
+                  items={DROPDOWN_DATA.planes}
+                  section="planes"
+                  isOpen={activeDropdown === "planes"}
+                  onItemClick={handleMenuItemClick}
+                />
               </div>
 
               <div>
                 <button
                   type="button"
                   onClick={() => handleClick("pedir")}
-                  className="w-full flex items-center justify-between text-white/90 hover:text-white text-sm font-medium"
+                  className="w-full flex items-center justify-between text-gray-700 hover:text-teal-600 text-sm font-medium"
                 >
                   <span>Pedir</span>
                   <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === "pedir" ? "rotate-180" : ""}`} />
                 </button>
-                <MobileDropdownInline items={dropdownData.pedir} section="pedir" isOpen={activeDropdown === "pedir"} />
+                <MobileDropdownInline
+                  items={DROPDOWN_DATA.pedir}
+                  section="pedir"
+                  isOpen={activeDropdown === "pedir"}
+                  onItemClick={handleMenuItemClick}
+                />
               </div>
 
               <div>
                 <button
                   type="button"
-                  onClick={() => handleClick("arquitectura")}
-                  className="w-full flex items-center justify-between text-white/90 hover:text-white text-sm font-medium"
+                  onClick={() => handleClick("render")}
+                  className="w-full flex items-center justify-between text-gray-700 hover:text-teal-600 text-sm font-medium"
                 >
-                  <span>Arquitectura</span>
-                  <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === "arquitectura" ? "rotate-180" : ""}`} />
+                  <span>Render y Modelados 3D</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === "render" ? "rotate-180" : ""}`} />
                 </button>
-                <MobileDropdownInline items={dropdownData.arquitectura} section="arquitectura" isOpen={activeDropdown === "arquitectura"} />
+                <MobileDropdownInline
+                  items={DROPDOWN_DATA.render}
+                  section="render"
+                  isOpen={activeDropdown === "render"}
+                  onItemClick={handleMenuItemClick}
+                />
               </div>
 
-              <button className="w-full bg-teal-500 hover:bg-teal-400 text-white py-3 rounded-xl font-semibold text-sm">
-                CONTÁCTENOS
+              <button
+                type="button"
+                className="block w-full text-left text-gray-700 hover:text-teal-600 text-sm font-medium"
+                onClick={() => scrollToSection("eventos")}
+              >
+                Eventos
               </button>
+
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center bg-teal-500 hover:bg-teal-600 text-white py-3 rounded-xl font-semibold text-sm transition-colors"
+              >
+                CONTÁCTENOS
+              </a>
             </div>
           </div>
         )}
@@ -275,4 +430,4 @@ const Navbar = ({ onNavigate }) => {
   );
 };
 
-export default Navbar;
+export default memo(Navbar);

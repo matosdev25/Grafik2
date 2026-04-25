@@ -1,24 +1,51 @@
 export const planesData = {
+  combos: [
+    {
+      id: 'minicombi',
+      name: 'Pack Básico',
+      price: '$180',
+      period: '/mes',
+      subtitle: '4 Flyers + 4 Videos',
+      description: '4 flyers y 4 videos al mes con 2 grabaciones. Ideal para marcas que están comenzando.',
+      popular: false,
+    },
+    {
+      id: 'combimediana',
+      name: 'Pack Media',
+      price: '$300',
+      period: '/mes',
+      subtitle: '8 Flyers + 8 Videos',
+      description: '8 flyers y 8 videos al mes con 4 grabaciones a la semana. Para negocios en crecimiento.',
+      popular: true,
+    },
+    {
+      id: 'supercombi',
+      name: 'Pack Premium',
+      price: '$375',
+      period: '/mes',
+      subtitle: '12 Videos + Flyers',
+      description: '12 videos y flyers al mes con grabaciones ilimitadas. Para marcas consolidadas.',
+      popular: false,
+    },
+  ],
   diseno: [
     {
       id: 'mini',
       name: 'Mini Grafik',
-      price: '$60',
+      price: '$75',
       period: '/mes',
       subtitle: '4 Flyers Mensuales',
-      description:
-        'Ideal para pequeños negocios que necesitan presencia visual constante con un flujo simple y profesional.',
-      popular: false
+      description: 'Ideal para pequeños negocios que necesitan presencia visual constante y profesional.',
+      popular: false,
     },
     {
       id: 'gmedia',
       name: 'Grafik Media',
-      price: '$120',
+      price: '$150',
       period: '/mes',
       subtitle: '8 Flyers Mensuales',
-      description:
-        'Pensado para negocios que quieren mantener su contenido fresco y constante durante el mes.',
-      popular: true
+      description: 'Para negocios que quieren mantener su contenido fresco, constante y de calidad.',
+      popular: true,
     },
     {
       id: 'multi',
@@ -26,73 +53,77 @@ export const planesData = {
       price: '$180',
       period: '/mes',
       subtitle: '12 Flyers Mensuales',
-      description:
-        'El paquete más completo para marcas que quieren dominar las redes con contenido audiovisual profesional y constante.',
-      popular: false
-    }
+      description: 'El paquete más completo para marcas que necesitan contenido visual constante.',
+      popular: false,
+    },
   ],
   contenido: [
     {
       id: 'babymovie',
-      name: 'BABY MOVIE',
-      price: '$150',
+      name: 'Baby Movie',
+      price: '$175',
       period: '/mes',
       subtitle: '4 Videos Mensuales',
-      description:
-        'Perfecto para quienes están iniciando y desean contenido profesional sin complicaciones.',
-      popular: false
+      description: '4 videos al mes con 2 grabaciones. Perfecto para iniciar con contenido profesional.',
+      popular: false,
     },
     {
       id: 'mediamovie',
-      name: 'MEDIA MOVIE',
-      price: '$299',
+      name: 'Media Movie',
+      price: '$275',
       period: '/mes',
       subtitle: '8 Videos Mensuales',
-      description:
-        'Ideal para marcas que quieren publicar con más impacto y mantener una estrategia visual más activa.',
-      popular: true
+      description: '8 videos al mes con 4 grabaciones. Para marcas que buscan mayor impacto visual.',
+      popular: true,
     },
     {
       id: 'supermovie',
-      name: 'SUPER MOVIE',
-      price: '$450',
+      name: 'Super Movie',
+      price: '$325',
       period: '/mes',
-      subtitle: 'Producción de Alto Nivel',
-      description:
-        'El paquete más completo para marcas que quieren dominar las redes con contenido audiovisual profesional y constante.',
-      popular: false
-    }
+      subtitle: '12 Videos Mensuales',
+      description: '12 videos al mes con grabaciones ilimitadas. Domina las redes con contenido constante.',
+      popular: false,
+    },
   ],
-  combos: [
+  combiCompleta: [
     {
-      id: 'minicombi',
-      name: 'Mini Combi',
-      price: '$120',
+      id: 'combicompleta',
+      name: 'Combi Completa',
+      price: '$500',
       period: '/mes',
-      subtitle: '4 Flyers + 4 Videos',
-      description:
-        'Ideal para marcas pequeñas o personales que están comenzando y quieren mantener sus redes activas sin invertir demasiado.',
-      popular: false
+      subtitle: 'Paquete Total',
+      description: 'Todo lo que necesitas en un solo paquete: diseño gráfico, videos y grabaciones ilimitadas. La solución integral para tu marca.',
+      popular: true,
+    },
+  ],
+  logo: [
+    {
+      id: 'logobasico',
+      name: 'Logo Básico',
+      price: '$150',
+      period: '',
+      subtitle: 'Versión positivo y negativo',
+      description: 'Diseño de logo base, versión positivo y negativo, paleta de colores y archivo Illustrator.',
+      popular: false,
     },
     {
-      id: 'combimediana',
-      name: 'Combi Mediana',
-      price: '$240',
-      period: '/mes',
-      subtitle: '8 Flyers + 8 Videos',
-      description:
-        'Perfecta para negocios en crecimiento que buscan una presencia constante y variada en redes.',
-      popular: true
+      id: 'logopro',
+      name: 'Logo Pro',
+      price: '$250',
+      period: '',
+      subtitle: '2 variantes de logo',
+      description: 'Diseño de logo con 2 variantes, versión positivo y negativo, paleta de colores y archivo Illustrator.',
+      popular: true,
     },
     {
-      id: 'supercombi',
-      name: 'Super Combi',
-      price: '$350',
-      period: '/mes',
-      subtitle: '12 Flyers + 12 Videos',
-      description:
-        'Diseñada para marcas consolidadas o que quieren estar siempre activas con contenido constante y profesional.',
-      popular: false
-    }
-  ]
+      id: 'identidad',
+      name: 'Identidad Visual',
+      price: '$500',
+      period: '',
+      subtitle: 'Manual de marca completo',
+      description: 'Logotipo, paleta de colores, tipografía corporativa, imagenería, aplicaciones visuales, isotipo, imagotipo, retícula y manual de marca.',
+      popular: false,
+    },
+  ],
 };

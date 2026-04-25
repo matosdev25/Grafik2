@@ -1,132 +1,173 @@
-import React, { useState } from 'react';
-import { MessageSquare, Instagram, Mail, Clock } from 'lucide-react';
-import { useToast } from '../hooks/use-toast';
+import React, { useState, useCallback, memo } from "react";
+import { MessageSquare, Instagram, Mail, Clock } from "lucide-react";
+import { useToast } from "../hooks/use-toast";
 
-const Contacto = () => {
+const INITIAL_FORM_DATA = {
+  nombre: "",
+  whatsapp: "",
+  servicio: "",
+  mensaje: "",
+};
+
+const CONTACT_METHODS = [
+  { id: "whatsapp", icon: MessageSquare, label: "WhatsApp", value: "+507 6628-1656" },
+  { id: "instagram", icon: Instagram, label: "Instagram", value: "@grafik2s" },
+  { id: "email", icon: Mail, label: "Email", value: "grafik2pty@gmail.com" },
+];
+
+const SCHEDULE = [
+  { id: "lunes-viernes", day: "Lunes – Viernes", hours: "8:00 AM – 10:00 PM" },
+  { id: "sabado", day: "Sábado", hours: "10:00 AM – 5:00 PM" },
+  { id: "domingo", day: "Domingo", hours: "Cerrado" },
+];
+
+const ContactMethodsCard = memo(function ContactMethodsCard() {
+  return (
+    <div className="bg-white border border-gray-200 rounded-3xl p-8 shadow-sm">
+      <h3 className="font-queering text-2xl font-bold text-gray-900 mb-6">
+        Otros métodos de contacto
+      </h3>
+      <div className="bg-gray-50 rounded-2xl border border-gray-200 divide-y divide-gray-200 overflow-hidden">
+        {CONTACT_METHODS.map((method) => {
+          const Icon = method.icon;
+          return (
+            <div
+              key={method.id}
+              className="flex items-center gap-4 p-4 hover:bg-gray-100 transition-colors"
+            >
+              <Icon className="w-6 h-6 text-teal-500 flex-shrink-0" />
+              <div className="leading-tight">
+                <p className="text-gray-500 text-sm">{method.label}</p>
+                <p className="text-gray-900 font-medium">{method.value}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+});
+
+const ScheduleCard = memo(function ScheduleCard() {
+  return (
+    <div className="bg-white border border-gray-200 rounded-3xl p-8 shadow-sm">
+      <div className="flex items-center gap-3 mb-6">
+        <Clock className="w-6 h-6 text-teal-500" />
+        <h3 className="font-queering text-2xl font-bold text-gray-900">
+          Horario de atención
+        </h3>
+      </div>
+      <div className="bg-gray-50 rounded-2xl border border-gray-200 divide-y divide-gray-200 overflow-hidden">
+        {SCHEDULE.map((item) => (
+          <div
+            key={item.id}
+            className="flex justify-between items-center p-4 hover:bg-gray-100 transition-colors"
+          >
+            <span className="text-gray-600">{item.day}</span>
+            <span className="text-gray-900 font-medium">{item.hours}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+});
+
+const Contacto = memo(function Contacto() {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    nombre: '',
-    whatsapp: '',
-    servicio: '',
-    mensaje: ''
-  });
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    toast({
-      title: 'Mensaje enviado',
-      description: 'Nos pondremos en contacto contigo pronto.'
-    });
-    setFormData({ nombre: '', whatsapp: '', servicio: '', mensaje: '' });
-  };
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      toast({ title: "Mensaje enviado", description: "Nos pondremos en contacto contigo pronto." });
+      setFormData(INITIAL_FORM_DATA);
+    },
+    [toast]
+  );
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const contactMethods = [
-    { icon: MessageSquare, label: 'WhatsApp', value: '+507 6228-1656' },
-    { icon: Instagram, label: 'Instagram', value: '@grafik2s' },
-    { icon: Mail, label: 'Email', value: 'grafik2pty@gmail.com' }
-  ];
-
-  const schedule = [
-    { day: 'Lunes – Viernes', hours: '9:00 AM - 6:00 PM' },
-    { day: 'Sábado', hours: '10:00 AM - 2:00 PM' },
-    { day: 'Domingo', hours: 'Cerrado' }
-  ];
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+    const processed = name === "whatsapp" ? value.replace(/\D/g, "").slice(0, 8) : value;
+    setFormData((prev) => ({ ...prev, [name]: processed }));
+  }, []);
 
   return (
-    <section className="font-gilroy py-20 px-4" id="contacto">
+    <section className="font-gilroy py-20 px-4 bg-gray-50" id="contacto">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="font-queering text-5xl font-bold text-white mb-4">
+          <h2 className="font-queering text-5xl font-bold text-gray-900 mb-4">
             Contacto
           </h2>
-          <p className="text-white/70 text-lg">Estamos aquí para ayudarte</p>
+          <p className="text-gray-500 text-lg">Estamos aquí para ayudarte</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Contact Form */}
-          <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl shadow-black/20">
-            <h3 className="font-queering text-2xl font-bold text-white mb-6">
+          <div className="bg-white border border-gray-200 rounded-3xl p-8 shadow-sm">
+            <h3 className="font-queering text-2xl font-bold text-gray-900 mb-6">
               Enviar mensaje
             </h3>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-white/80 mb-2 text-sm font-medium">
-                  Nombre
-                </label>
+                <label className="block text-gray-700 mb-2 text-sm font-medium">Nombre</label>
                 <input
                   type="text"
                   name="nombre"
                   value={formData.nombre}
                   onChange={handleChange}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-teal-400/50 focus:outline-none transition-colors"
+                  className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-teal-500 focus:outline-none transition-colors"
                   placeholder="Tu nombre completo"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-white/80 mb-2 text-sm font-medium">
-                  WhatsApp
-                </label>
-                <input
-                  type="tel"
-                  name="whatsapp"
-                  value={formData.whatsapp}
-                  onChange={handleChange}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-teal-400/50 focus:outline-none transition-colors"
-                  placeholder="+1 234 567 8900"
-                  required
-                />
+                <label className="block text-gray-700 mb-2 text-sm font-medium">WhatsApp</label>
+                <div className="flex rounded-xl overflow-hidden border border-gray-300 focus-within:border-teal-500 transition-colors bg-gray-50">
+                  <span className="flex items-center px-4 py-3 bg-gray-100 text-gray-600 text-sm font-medium border-r border-gray-300 select-none">
+                    +507
+                  </span>
+                  <input
+                    type="tel"
+                    name="whatsapp"
+                    value={formData.whatsapp}
+                    onChange={handleChange}
+                    inputMode="numeric"
+                    maxLength={8}
+                    pattern="[0-9]{8}"
+                    placeholder="0000 0000"
+                    required
+                    className="flex-1 bg-gray-50 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none"
+                  />
+                </div>
               </div>
 
               <div>
-                <label className="block text-white/80 mb-2 text-sm font-medium">
-                  Servicio
-                </label>
+                <label className="block text-gray-700 mb-2 text-sm font-medium">Servicio</label>
                 <select
                   name="servicio"
                   value={formData.servicio}
                   onChange={handleChange}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-teal-400/50 focus:outline-none transition-colors"
+                  className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-gray-900 focus:border-teal-500 focus:outline-none transition-colors"
                   required
                 >
-                  <option value="" className="bg-gray-900">
-                    Selecciona un servicio
-                  </option>
-                  <option value="diseno" className="bg-gray-900">
-                    Diseño Gráfico
-                  </option>
-                  <option value="video" className="bg-gray-900">
-                    Creación de Videos
-                  </option>
-                  <option value="arquitectura" className="bg-gray-900">
-                    Arquitectura
-                  </option>
-                  <option value="logo" className="bg-gray-900">
-                    Logos
-                  </option>
+                  <option value="">Selecciona un servicio</option>
+                  <option value="diseno">Diseño Gráfico</option>
+                  <option value="video">Creación de Videos</option>
+                  <option value="render3d">Render y Modelados 3D</option>
+                  <option value="logo">Logos</option>
+                  <option value="eventos">Eventos</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-white/80 mb-2 text-sm font-medium">
-                  Mensaje
-                </label>
+                <label className="block text-gray-700 mb-2 text-sm font-medium">Mensaje</label>
                 <textarea
                   name="mensaje"
                   value={formData.mensaje}
                   onChange={handleChange}
                   rows="4"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-teal-400/50 focus:outline-none transition-colors resize-none"
+                  className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-teal-500 focus:outline-none transition-colors resize-none"
                   placeholder="Cuéntanos sobre tu proyecto..."
                   required
                 />
@@ -134,68 +175,21 @@ const Contacto = () => {
 
               <button
                 type="submit"
-                className="w-full bg-teal-500 hover:bg-teal-400 text-white py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-teal-500/30"
+                className="w-full bg-teal-500 hover:bg-teal-600 text-white py-4 rounded-full font-semibold transition-all duration-300 hover:scale-[1.02] hover:shadow-md hover:shadow-teal-500/20"
               >
                 Enviar mensaje
               </button>
             </form>
           </div>
 
-          {/* Contact Info & Schedule */}
           <div className="space-y-6">
-            {/* Contact Methods - UNA sola card con divisores */}
-          <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl shadow-black/20">
-          <h3 className="font-queering text-2xl font-bold text-white mb-6">
-              Otros métodos de contacto
-            </h3>
-
-            <div className="bg-white/5 rounded-2xl border border-white/10 divide-y divide-white/10 overflow-hidden">
-              {contactMethods.map((method, index) => {
-                const Icon = method.icon;
-                return (
-                  <div
-                    key={index}
-                    className="flex items-center gap-4 p-4 hover:bg-white/10 transition-colors"
-                  >
-                    <Icon className="w-6 h-6 text-teal-400 flex-shrink-0" />
-                    <div className="leading-tight">
-                      <p className="text-white/60 text-sm">{method.label}</p>
-                      <p className="text-white font-medium">{method.value}</p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-
-            {/* Schedule */}
-          <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl shadow-black/20">
-            <div className="flex items-center gap-3 mb-6">
-              <Clock className="w-6 h-6 text-teal-400" />
-              <h3 className="font-queering text-2xl font-bold text-white">
-                Horario de atención
-              </h3>
-            </div>
-
-            {/* UNA sola “lista” con divisores */}
-            <div className="bg-white/5 rounded-2xl border border-white/10 divide-y divide-white/10 overflow-hidden">
-              {schedule.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex justify-between items-center p-4 hover:bg-white/10 transition-colors"
-                >
-                  <span className="text-white/70">{item.day}</span>
-                  <span className="text-white font-medium">{item.hours}</span>
-                </div>
-              ))}
-            </div>
+            <ContactMethodsCard />
+            <ScheduleCard />
           </div>
         </div>
       </div>
-      </div>
     </section>
   );
-};
+});
 
 export default Contacto;

@@ -1,81 +1,93 @@
-import React, { forwardRef } from 'react';
-import { Building2, Gem } from 'lucide-react';
+import React, { forwardRef, memo } from "react";
+import { Monitor, Layers, Box } from "lucide-react";
 
-const Arquitectura = forwardRef((props, ref) => {
-  const services = [
-    {
-      icon: Building2,
-      title: 'Planos',
-      description:
-        'Diseño arquitectónico completo con especificaciones técnicas detalladas y planos profesionales.',
-      chips: ['Planos 2D', 'Especificaciones', 'Permisos', 'Revisiones']
-    },
-    {
-      icon: Gem,
-      title: 'Renders',
-      description:
-        'Visualizaciones 3D fotorrealistas que dan vida a tus proyectos antes de construir.',
-      chips: ['Renders 3D', 'Fotorrealismo', '360° Tours', 'Animaciones']
-    }
-  ];
+const SERVICES = [
+  {
+    id: "render",
+    icon: Monitor,
+    title: "Render",
+    description:
+      "Visualizaciones 3D fotorrealistas que dan vida a tus proyectos con calidad cinematográfica.",
+    chips: ["Renders 3D", "Fotorrealismo", "360° Tours", "Animaciones"],
+  },
+  {
+    id: "modelados",
+    icon: Layers,
+    title: "Renders y Modelados 3D",
+    description:
+      "Modelado tridimensional completo con texturas, materiales y acabados profesionales.",
+    chips: ["Modelado 3D", "Texturas", "Materiales", "Exportación"],
+  },
+  {
+    id: "modelados3d",
+    icon: Box,
+    title: "Modelados 3D",
+    description:
+      "Creación de modelos 3D de alta precisión para arquitectura, producto y animación.",
+    chips: ["Alta precisión", "Arquitectura", "Producto", "Animación"],
+  },
+];
+
+const ServiceCard = memo(function ServiceCard({ service }) {
+  const Icon = service.icon;
 
   return (
-    <section className="font-gilroy py-20 px-4" id="arquitectura" ref={ref}>
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-queering text-5xl font-bold text-white mb-4">
-            Arquitectura
-          </h2>
-          <p className="text-white/70 text-lg">Soluciones arquitectónicas profesionales</p>
-        </div>
-
-        {/* Service Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {services.map((service, index) => {
-            const Icon = service.icon;
-            return (
-              <div
-                key={index}
-                className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-10 shadow-2xl shadow-black/20 hover:bg-white/10 transition-all duration-300 hover:scale-105"
-              >
-                <div className="mb-6">
-                  <Icon className="w-16 h-16 text-teal-400" strokeWidth={1.5} />
-                </div>
-
-                {/* Título card en Queering */}
-                <h3 className="font-queering text-3xl font-bold text-white mb-4">
-                  {service.title}
-                </h3>
-
-                <p className="text-white/60 text-base mb-8 leading-relaxed">
-                  {service.description}
-                </p>
-
-                {/* Chips (Gilroy heredado) */}
-                <div className="grid grid-cols-2 gap-3 mb-8">
-                  {service.chips.map((chip, idx) => (
-                    <div
-                      key={idx}
-                      className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-3 text-center text-white/80 text-sm font-medium"
-                    >
-                      {chip}
-                    </div>
-                  ))}
-                </div>
-
-                <button className="w-full bg-teal-500 hover:bg-teal-400 text-white py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-teal-500/30">
-                  Ver detalles
-                </button>
-              </div>
-            );
-          })}
-        </div>
+    <div className="bg-white border border-gray-200 rounded-3xl p-10 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-[1.02]">
+      <div className="mb-6">
+        <Icon className="w-16 h-16 text-teal-500" strokeWidth={1.5} />
       </div>
-    </section>
+
+      <h3 className="font-queering text-3xl font-bold text-gray-900 mb-4">
+        {service.title}
+      </h3>
+
+      <p className="text-gray-500 text-base mb-8 leading-relaxed">
+        {service.description}
+      </p>
+
+      <div className="grid grid-cols-2 gap-3 mb-8">
+        {service.chips.map((chip) => (
+          <div
+            key={chip}
+            className="bg-gray-100 border border-gray-200 rounded-xl px-4 py-3 text-center text-gray-700 text-sm font-medium"
+          >
+            {chip}
+          </div>
+        ))}
+      </div>
+
+      <button className="w-full bg-teal-500 hover:bg-teal-600 text-white py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-md hover:shadow-teal-500/20">
+        Ver detalles
+      </button>
+    </div>
   );
 });
 
-Arquitectura.displayName = 'Arquitectura';
+const Arquitectura = memo(
+  forwardRef(function Arquitectura(props, ref) {
+    return (
+      <section className="font-gilroy py-20 px-4" id="arquitectura" ref={ref}>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="font-queering text-5xl font-bold text-gray-900 mb-4">
+              Render y Modelados 3D
+            </h2>
+            <p className="text-gray-500 text-lg">
+              Visualizaciones y modelados tridimensionales profesionales
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {SERVICES.map((service) => (
+              <ServiceCard key={service.id} service={service} />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  })
+);
+
+Arquitectura.displayName = "Arquitectura";
 
 export default Arquitectura;
