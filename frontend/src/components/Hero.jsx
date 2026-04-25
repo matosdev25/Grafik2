@@ -5,11 +5,11 @@ import { WHATSAPP_URL } from "@/lib/utils";
 const HERO_VIDEO_SRC = `${process.env.PUBLIC_URL}/videos/hero-video.mp4`;
 
 const DESIGN_SLIDES = [
-  `${process.env.PUBLIC_URL}/images/portfolio/proyecto-1.PNG`,
-  `${process.env.PUBLIC_URL}/images/portfolio/proyecto-2.PNG`,
-  `${process.env.PUBLIC_URL}/images/portfolio/proyecto-3.PNG`,
-  `${process.env.PUBLIC_URL}/images/portfolio/proyecto-4.PNG`,
-  `${process.env.PUBLIC_URL}/images/portfolio/proyecto-5.PNG`,
+  `${process.env.PUBLIC_URL}/images/design/design-1.PNG`,
+  `${process.env.PUBLIC_URL}/images/design/design-2.PNG`,
+  `${process.env.PUBLIC_URL}/images/design/design-3.PNG`,
+  `${process.env.PUBLIC_URL}/images/design/design-4.PNG`,
+  `${process.env.PUBLIC_URL}/images/design/design-5.PNG`,
 ];
 
 const getNextMonthStart = (from = new Date()) =>
@@ -134,7 +134,7 @@ const HeroVideo = memo(function HeroVideo() {
   }, []);
 
   return (
-    <div className="bg-teal-50 rounded-2xl aspect-[3/2] sm:aspect-[3/4] overflow-hidden mb-5 sm:mb-6">
+    <div className="bg-teal-50 rounded-2xl aspect-[3/4] overflow-hidden mb-5 sm:mb-6">
       <video
         ref={videoRef}
         src={HERO_VIDEO_SRC}
@@ -168,7 +168,7 @@ const HeroDesignSlider = memo(function HeroDesignSlider() {
 
   return (
     <div
-      className="bg-teal-50 rounded-2xl aspect-[3/2] sm:aspect-[3/4] overflow-hidden mb-5 sm:mb-6 relative"
+      className="bg-teal-50 rounded-2xl aspect-[3/4] overflow-hidden mb-5 sm:mb-6 relative"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       role="region"
