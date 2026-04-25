@@ -2,14 +2,14 @@ import React, { useState, useEffect, useRef, useMemo, useCallback, memo } from "
 import { MessageCircle, Eye, Target } from "lucide-react";
 import { WHATSAPP_URL } from "@/lib/utils";
 
-const HERO_VIDEO_SRC = `${process.env.PUBLIC_URL}/videos/hero-video.mp4`;
+const HERO_VIDEO_SRC = "/videos/hero-video.mp4";
 
 const DESIGN_SLIDES = [
-  `${process.env.PUBLIC_URL}/images/design/design-1.png`,
-  `${process.env.PUBLIC_URL}/images/design/design-2.png`,
-  `${process.env.PUBLIC_URL}/images/design/design-3.png`,
-  `${process.env.PUBLIC_URL}/images/design/design-4.png`,
-  `${process.env.PUBLIC_URL}/images/design/design-5.png`,
+  "/images/design/design-1.png",
+  "/images/design/design-2.png",
+  "/images/design/design-3.png",
+  "/images/design/design-4.png",
+  "/images/design/design-5.png",
 ];
 
 const getNextMonthStart = (from = new Date()) =>
