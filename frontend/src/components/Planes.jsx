@@ -62,7 +62,7 @@ const PlanCard = memo(function PlanCard({ plan, setCardRef, onSelectPlan }) {
 
 const Planes = memo(
   forwardRef(function Planes({ selectedPlan, selectedCategory }, ref) {
-    const [activeTab, setActiveTab] = useState("diseno");
+    const [activeTab, setActiveTab] = useState("combiCompleta");
     const [modalPlan, setModalPlan] = useState(null);
     const cardRefs = useRef({});
     const scrollTimeoutRef = useRef(null);
