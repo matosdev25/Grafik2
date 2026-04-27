@@ -23,8 +23,7 @@ const Eventos = memo(function Eventos() {
               Próximamente
             </h3>
             <p className="text-gray-500 text-base leading-relaxed">
-              Estamos preparando algo especial. Mantente al tanto de nuestros nuevos
-              servicios de cobertura de eventos.
+              Cobertura profesional, producción y alquiler para eventos. Incluye grabación, edición de video, renders 3D, personal (azafatas) y maquinaria especializada para todo tipo de eventos.
             </p>
           </div>
         </div>
