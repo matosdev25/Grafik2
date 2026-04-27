@@ -249,7 +249,7 @@ const Hero = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="space-y-6 sm:space-y-8 max-w-[520px] lg:max-w-none">
             <h1 className="text-gray-900 text-4xl sm:text-5xl lg:text-7xl font-bold leading-[1.05]">
-              Le damos un <span className="text-teal-500">estilo único</span> a tus ideas 💡
+              Le damos un <span className="text-teal-500">estilo único</span><br className="sm:hidden" /> a tus ideas 💡
             </h1>
 
             <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
