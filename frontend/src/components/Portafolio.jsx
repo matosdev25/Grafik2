@@ -72,7 +72,7 @@ const Portafolio = memo(function Portafolio() {
             aria-label="Ver los videos trabajados"
           >
             <Video className="w-5 h-5" />
-            Ver los videos trabajados aqui
+            Ver videos/Flyers trabajados aqui
           </a>
         </div>
       </div>
