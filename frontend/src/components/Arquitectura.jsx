@@ -3,9 +3,17 @@ import { Monitor, Layers, Box } from "lucide-react";
 
 const SERVICES = [
   {
+    id: "modelados3d",
+    icon: Box,
+    title: "Modelado 3D",
+    description:
+      "Creación de modelos 3D de alta precisión para arquitectura, producto y animación.",
+    chips: ["Alta precisión", "Arquitectura", "Producto", "Animación"],
+  },
+  {
     id: "render",
     icon: Monitor,
-    title: "Render",
+    title: "Renders",
     description:
       "Visualizaciones 3D fotorrealistas que dan vida a tus proyectos con calidad cinematográfica.",
     chips: ["Renders 3D", "Fotorrealismo", "360° Tours", "Animaciones"],
@@ -13,18 +21,10 @@ const SERVICES = [
   {
     id: "modelados",
     icon: Layers,
-    title: "Renders y Modelados 3D",
+    title: "Combo: Modelado 3D + Renders",
     description:
       "Modelado tridimensional completo con texturas, materiales y acabados profesionales.",
     chips: ["Modelado 3D", "Texturas", "Materiales", "Exportación"],
-  },
-  {
-    id: "modelados3d",
-    icon: Box,
-    title: "Modelados 3D",
-    description:
-      "Creación de modelos 3D de alta precisión para arquitectura, producto y animación.",
-    chips: ["Alta precisión", "Arquitectura", "Producto", "Animación"],
   },
 ];
 

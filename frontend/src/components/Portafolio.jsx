@@ -1,5 +1,10 @@
 import React, { memo } from "react";
-import { Instagram } from "lucide-react";
+import { Instagram, Video } from "lucide-react";
+
+// ── LINK DE GOOGLE DRIVE ──────────────────────────────────────────────────────
+// Reemplaza esta URL con el enlace real de Google Drive de los videos trabajados
+const GOOGLE_DRIVE_VIDEOS_URL = "https://drive.google.com/";
+// ─────────────────────────────────────────────────────────────────────────────
 
 const PORTFOLIO_ITEMS = [
   { id: 1, image: `${process.env.PUBLIC_URL}/images/portfolio/proyecto-1.PNG`, alt: "Diseño gráfico para redes sociales 1" },
@@ -47,16 +52,27 @@ const Portafolio = memo(function Portafolio() {
           ))}
         </div>
 
-        <div className="flex justify-center">
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
           <a
             href="https://www.instagram.com/grafik2s/"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-4 rounded-full font-semibold transition-transform duration-300 hover:scale-[1.03] flex items-center gap-2 shadow-md"
+            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-4 rounded-full font-semibold transition-transform duration-300 hover:scale-[1.03] flex items-center justify-center gap-2 shadow-md"
             aria-label="Ver más en Instagram"
           >
             <Instagram className="w-5 h-5" />
             Ver más en Instagram
+          </a>
+
+          <a
+            href={GOOGLE_DRIVE_VIDEOS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-4 rounded-full font-semibold transition-transform duration-300 hover:scale-[1.03] flex items-center justify-center gap-2 shadow-md"
+            aria-label="Ver los videos trabajados"
+          >
+            <Video className="w-5 h-5" />
+            Ver los videos trabajados aqui
           </a>
         </div>
       </div>
