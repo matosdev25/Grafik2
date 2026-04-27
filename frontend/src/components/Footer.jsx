@@ -37,7 +37,7 @@ const Footer = memo(function Footer() {
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <img
-                src={`${process.env.PUBLIC_URL}/logo.png`}
+                src={`${process.env.PUBLIC_URL}/logo1.png`}
                 alt={BRAND_NAME}
                 className="h-6 w-6 object-contain"
                 loading="lazy"

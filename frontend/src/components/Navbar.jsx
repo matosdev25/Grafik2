@@ -210,7 +210,7 @@ const Navbar = ({ onNavigate }) => {
             aria-label="Ir al inicio"
           >
             <img
-              src={`${process.env.PUBLIC_URL}/logo.png`}
+              src={`${process.env.PUBLIC_URL}/logo1.png`}
               alt="GRAFIK2"
               className="h-6 w-6 object-contain"
             />
