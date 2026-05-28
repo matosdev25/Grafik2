@@ -11,8 +11,8 @@ import { planesData } from "../data/planesData";
 import PlanModal from "./PlanModal";
 
 const TABS = [
-  { id: "combos", label: "Combis" },
   { id: "diseno", label: "Diseño Gráfico" },
+  { id: "combos", label: "Paquetes" },
   { id: "combiCompleta", label: "Combi Completa" },
   { id: "contenido", label: "Creación de Video" },
   { id: "logo", label: "Logo" },
