@@ -10,7 +10,7 @@ import { WHATSAPP_URL } from "@/lib/utils";
 
 const DROPDOWN_DATA = {
   planes: [
-    { id: "combos", label: "Combis", category: "combos", plan: "combimediana" },
+    { id: "combos", label: "Paquetes", category: "combos", plan: "combimediana" },
     { id: "diseno", label: "Diseño Gráfico", category: "diseno", plan: "gmedia" },
     { id: "combiCompleta", label: "Combi Completa", category: "combiCompleta", plan: "combicompleta" },
     { id: "contenido", label: "Creación de Video", category: "contenido", plan: "mediamovie" },
