@@ -24,7 +24,7 @@ export const pedirData = {
       id: 'grabacion',
       name: 'Grabación',
       description: 'Sesión de grabación profesional con equipo de calidad.',
-      price: '$25',
+      price: '$75',
     },
   ],
 };
