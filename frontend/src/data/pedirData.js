@@ -18,7 +18,7 @@ export const pedirData = {
       id: 'edicion',
       name: 'Solo Edición',
       description: 'Edición profesional de tu material grabado. Entrega en formato optimizado para redes sociales con corrección de color y audio.',
-      price: '$65',
+      price: '$35',
     },
     {
       id: 'grabacion',

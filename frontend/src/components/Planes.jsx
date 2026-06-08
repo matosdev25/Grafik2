@@ -11,7 +11,7 @@ import { planesData } from "../data/planesData";
 import PlanModal from "./PlanModal";
 
 const TABS = [
-  { id: "diseno", label: "Planes para FLyers" },
+  { id: "diseno", label: "Planes para Flyers" },
   { id: "combos", label: "Planes en Combo" },
   { id: "combiCompleta", label: "Manejo de Redes" },
   { id: "contenido", label: "Planes de Video" },
@@ -115,7 +115,7 @@ const Planes = memo(
             <h2 className="font-queering text-5xl font-bold text-gray-900 mb-4">
               Producción creativa y branding
             </h2>
-            <p className="text-gray-500 text-lg">Elige el plan perfecto para tus necesidades</p>
+            <p className="text-gray-500 text-lg">Elige tu plan mensual o contrátalo solo por el tiempo que lo necesites.</p>
           </div>
 
           <div className="flex justify-center mb-16">
