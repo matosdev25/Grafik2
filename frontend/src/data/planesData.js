@@ -89,11 +89,11 @@ export const planesData = {
   combiCompleta: [
     {
       id: 'combicompleta',
-      name: 'Combi Completa',
+      name: 'Plan Manejo de Redes',
       price: '$500',
       period: '/mes',
-      subtitle: 'Paquete Total',
-      description: 'Todo lo que necesitas en un solo paquete: diseño gráfico, videos y grabaciones ilimitadas. La solución integral para tu marca.',
+      subtitle: 'Manejo de tus Redes Sociales',
+      description: 'Incluye la gestión completa de tus redes sociales, diseño de piezas gráficas, creación de flyers, grabación y edición de videos, planificación de contenido y publicaciones para mantener tu marca activa y profesional.',
       popular: true,
     },
   ],

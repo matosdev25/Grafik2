@@ -11,11 +11,11 @@ import { planesData } from "../data/planesData";
 import PlanModal from "./PlanModal";
 
 const TABS = [
-  { id: "diseno", label: "Diseño Gráfico" },
-  { id: "combos", label: "Paquetes" },
-  { id: "combiCompleta", label: "Combi Completa" },
-  { id: "contenido", label: "Creación de Video" },
-  { id: "logo", label: "Logo" },
+  { id: "diseno", label: "Planes para FLyers" },
+  { id: "combos", label: "Planes en Combo" },
+  { id: "combiCompleta", label: "Manejo de Redes" },
+  { id: "contenido", label: "Planes de Video" },
+  { id: "logo", label: "Logos" },
 ];
 
 const PlanCard = memo(function PlanCard({ plan, setCardRef, onSelectPlan }) {
